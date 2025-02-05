@@ -25,6 +25,17 @@ in
       };
       grub = {
         enable = true;
+        mirroredBoots = [
+          {
+            path = "/boot";
+            efiSysMountPoint = "/boot/efi";
+            efiBootloaderId = "NixOS-Stream";
+            devices = [
+              "/dev/disk/by-uuid/CE99-F9B3"
+            ];
+          }
+        ];
+
         device = "nodev";
         efiSupport = true;
       };
@@ -61,6 +72,9 @@ in
   # Configure keymap in X11
   services.xserver.xkb.layout = "fr";
   services.xserver.xkb.options = "caps:escape";
+
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.graphics.enable = true;
 
   hardware.nvidia = {
     # Modesetting is required.
@@ -115,6 +129,7 @@ in
   # Allow unfree license
   nixpkgs.config.allowUnfree = true;
 
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.musholic = {
     isNormalUser = true;
@@ -128,6 +143,8 @@ in
     ];
     shell = pkgs.zsh;
   };
+
+  home-manager.backupFileExtension = "hm-backup";
   home-manager.users.musholic = { pkgs, ... }: {
    imports = [ "${impermanence}/home-manager.nix" ];
    home.sessionVariables = {
@@ -161,6 +178,27 @@ in
     programs.rofi = {
       enable=true;
     };
+
+    programs.obs-studio = let
+      obs-ndi = pkgs.obs-studio-plugins.obs-ndi.overrideAttrs(old:{
+          version = "6.0.0";
+          src = pkgs.fetchFromGitHub {
+            owner = "DistroAV";
+            repo = "DistroAV";
+            rev = "6.0.0";
+            hash = "sha256-pr/5XCLo5fzergIQrYFC9o9K+KuP4leDk5/oRe5ct9Q=";
+          };
+          patches = [];
+        });
+    in
+      {
+      enable = true;
+      plugins = [
+        obs-ndi
+      ];
+    };
+
+
     services.clipmenu = {
       enable = true;
       launcher = "rofi";
@@ -176,6 +214,19 @@ in
     enableCompletion = true;
     enableGlobalCompInit = false;
   };
+
+  fonts.packages = with pkgs; [
+    # Default
+    dejavu_fonts
+    freefont_ttf
+    gyre-fonts # TrueType substitutes for standard PostScript fonts
+    liberation_ttf
+    unifont
+    noto-fonts-color-emoji
+    # Custom
+    noto-fonts
+    nerdfonts
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -215,6 +266,9 @@ in
     ack
     silver-searcher
     feh
+    nix-search
+    manix
+    ndi
   ];
 
   environment.persistence."/nix/persist/system" = {
@@ -242,7 +296,7 @@ in
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
