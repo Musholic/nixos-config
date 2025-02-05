@@ -121,6 +121,7 @@ in
   # services.printing.enable = true;
 
   # Enable sound.
+  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -179,22 +180,10 @@ in
       enable=true;
     };
 
-    programs.obs-studio = let
-      obs-ndi = pkgs.obs-studio-plugins.obs-ndi.overrideAttrs(old:{
-          version = "6.0.0";
-          src = pkgs.fetchFromGitHub {
-            owner = "DistroAV";
-            repo = "DistroAV";
-            rev = "6.0.0";
-            hash = "sha256-pr/5XCLo5fzergIQrYFC9o9K+KuP4leDk5/oRe5ct9Q=";
-          };
-          patches = [];
-        });
-    in
-      {
+    programs.obs-studio = {
       enable = true;
-      plugins = [
-        obs-ndi
+      plugins = with pkgs.obs-studio-plugins; [
+        distroav
       ];
     };
 
@@ -268,7 +257,6 @@ in
     feh
     nix-search
     manix
-    ndi
   ];
 
   environment.persistence."/nix/persist/system" = {
@@ -288,6 +276,15 @@ in
 
   # List services that you want to enable:
   services.gpm.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
