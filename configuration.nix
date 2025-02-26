@@ -257,6 +257,7 @@ in
     feh
     nix-search
     manix
+    moreutils
   ];
 
   environment.persistence."/nix/persist/system" = {

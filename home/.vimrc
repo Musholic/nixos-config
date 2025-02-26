@@ -144,3 +144,6 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
 set term=kitty
+
+" Fix unable to delete in insert mode
+set backspace=indent,eol,start

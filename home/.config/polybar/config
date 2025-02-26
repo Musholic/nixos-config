@@ -206,7 +206,7 @@ interval = 1
 ;   <ramp-coreload>
 ;;format = <label> <ramp-coreload>
 format = <label>
-format-prefix = 
+format-prefix = 󰍛
 format-prefix-foreground = ${color.yellow}
 
 ; Available tokens:
@@ -271,28 +271,17 @@ label = " %mb_used%"
 ;;ramp-free-2 = ${memory.free2}
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-[module/wlan]
-type = internal/network
-interface = wlo1
-interval = 1.0
-
-format-connected = <label-connected>
-format-connected-prefix = 
-format-connected-prefix-foreground = ${color.purple}
-
-label-connected = "  %{F#6C77BB}%{F-}%downspeed:9% %{F#6C77BB}祝%{F-}%upspeed:9%"
-
 
 [module/eth]
 type = internal/network
-interface = enp0s3
+interface = enp4s0
 interval = 1.0
 
 format-connected = <label-connected>
-format-connected-prefix = 
+format-connected-prefix = 󰈁
 format-connected-prefix-foreground = ${color.purple}
 
-label-connected = "  %{F#6C77BB}%{F-}%downspeed:9% %{F#6C77BB}祝%{F-}%upspeed:9%"
+label-connected = "  %{F#6C77BB}󰇚%{F-}%downspeed:9% %{F#6C77BB}󰕒%{F-}%upspeed:9%"
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
