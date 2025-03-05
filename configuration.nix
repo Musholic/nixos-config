@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-distroav, ... }:
 let
   impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
 in
@@ -62,19 +62,30 @@ in
      useXkbConfig = true; # use xkb.options in tty.
    };
 
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.windowManager.bspwm.enable = true;
-
-
-  
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.wayland.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "fr";
   services.xserver.xkb.options = "caps:escape";
 
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+  programs.hyprland.withUWSM  = true;
+
   services.xserver.videoDrivers = ["nvidia"];
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      libvdpau-va-gl
+    ];
+  };
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Force intel-media-driver
 
   hardware.nvidia = {
     # Modesetting is required.
@@ -97,14 +108,14 @@ in
     # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
     # Only available from driver 515.43.04+
     # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
+    open = true;
 
     # Enable the Nvidia settings menu,
 	# accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    #package = config.boot.kernelPackages.nvidiaPackages.stable;
     prime = {
       #  sync.enable = true;
       offload = {
@@ -125,6 +136,15 @@ in
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+  };
+
+  services.hedgedoc = {
+    enable = true;
+    settings.port = 8001;
+    settings.domain = "nixos-musholic-stream.home:8001";
+    settings.host = "192.168.1.37";
+    settings.allowFreeURL = true;
+    settings.allowAnonymousEdits = true;
   };
 
   # Allow unfree license
@@ -176,24 +196,17 @@ in
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
-    programs.rofi = {
+    programs.wofi = {
       enable=true;
     };
 
     programs.obs-studio = {
       enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
+      plugins = with pkgs-distroav.obs-studio-plugins; [
         distroav
       ];
     };
 
-
-    services.clipmenu = {
-      enable = true;
-      launcher = "rofi";
-    };
-
-    services.picom.enable = true;
   };
 
   # programs.firefox.enable = true;
@@ -225,11 +238,9 @@ in
     git
     numlockx
     autorandr
-    numlockx
     xfce.xfce4-power-manager
     pasystray
     blueman
-    xss-lock
     sxhkd
     htop
     fzf
@@ -251,7 +262,6 @@ in
     jq
     yq
     ncdu
-    i3lock
     ack
     silver-searcher
     feh

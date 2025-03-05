@@ -1,0 +1,43 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1741048562,
+        "narHash": "sha256-W4YZ3fvWZiFYYyd900kh8P8wU6DHSiwaH0j4+fai1Sk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6af28b834daca767a7ef99f8a7defa957d0ade6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-distroav": {
+      "locked": {
+        "lastModified": 1739973133,
+        "narHash": "sha256-3iQuImmD9DvbTqZ3Zt1K5pxMpwn2Jsd4nIi3fG8Kf9w=",
+        "ref": "refs/heads/update-obs-ndi",
+        "rev": "d615936b2a20aacf293ab47556964daf305766ae",
+        "revCount": 2,
+        "type": "git",
+        "url": "file:///home/musholic/git/nixpkgs"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/musholic/git/nixpkgs"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-distroav": "nixpkgs-distroav"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
