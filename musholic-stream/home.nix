@@ -1,12 +1,9 @@
 
-{ config, lib, pkgs, pkgs-distroav, ... }:
-let
-  impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
-in
+{ config, lib, inputs, pkgs, pkgs-distroav, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
-      <home-manager/nixos>
+    [ 
+      inputs.home-manager.nixosModules.home-manager
     ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -25,8 +22,10 @@ in
 
   home-manager.backupFileExtension = "hm-backup";
   home-manager.users.musholic = { pkgs, ... }: {
-   imports = [ "${impermanence}/home-manager.nix" ];
-   home.sessionVariables = {
+    imports = [ 
+      inputs.impermanence.homeManagerModules.impermanence
+    ];
+    home.sessionVariables = {
       DISK = "/disk";
     }; 
 
@@ -47,8 +46,8 @@ in
         in listFilesRecursive ../home "";
     };
     home.file = {
-      ".vim/bundle/Vundle.vim".source = builtins.fetchGit  "https://github.com/VundleVim/Vundle.vim.git";
-      "git/sys/zgen".source = builtins.fetchGit "https://github.com/tarjoilija/zgen.git";
+      ".vim/bundle/Vundle.vim".source = inputs.vundle;
+      "git/sys/zgen".source = inputs.zgen;
     };
 
     # Let Home Manager install and manage itself.

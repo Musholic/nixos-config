@@ -1,13 +1,9 @@
-{ config, lib, pkgs, pkgs-distroav, ... }:
-let
-  impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
-in
+{ config, lib, inputs, pkgs, pkgs-distroav, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware.nix
-      "${impermanence}/nixos.nix"
-      ./home.nix
+      inputs.impermanence.nixosModules.impermanence
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -250,11 +246,6 @@ in
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
