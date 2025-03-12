@@ -17,7 +17,7 @@
         };
       };
       modules = [
-        ./configuration.nix
+        ./musholic-stream
       ];
     };
   };
