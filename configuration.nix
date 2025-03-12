@@ -14,7 +14,9 @@ in
       "${impermanence}/nixos.nix"
     ];
 
-  nix.settings.experimental-features = [ "nix-command" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  boot.kernel.sysctl."kernel.sysrq" = 1;
 
   boot = {
     kernelParams = [ "i915.force_probe=7d55" ];
@@ -85,7 +87,10 @@ in
       libvdpau-va-gl
     ];
   };
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Force intel-media-driver
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+    NIXOS_OZONE_WL = "1"; # Force intel-media-driver
+  }; 
 
   hardware.nvidia = {
     # Modesetting is required.
@@ -147,6 +152,11 @@ in
     settings.allowAnonymousEdits = true;
   };
 
+  services.openvpn.servers = {
+    streamVPN    = { config = '' config /root/nixos/openvpn/openvpn.ovpn ''; };
+  };
+
+
   # Allow unfree license
   nixpkgs.config.allowUnfree = true;
 
@@ -196,8 +206,15 @@ in
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
-    programs.wofi = {
+    programs.rofi = {
       enable=true;
+      package = pkgs.rofi-wayland;
+      theme = "Adapta-Nokto";
+    };
+
+    programs.waybar = {
+      enable=true;
+      systemd.enable = true;
     };
 
     programs.obs-studio = {
