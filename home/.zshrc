@@ -178,3 +178,22 @@ BASE16_SHELL="$HOME/git/sys/base16-shell/"
 if which ng &> /dev/null; then
     source <(ng completion script)
 fi
+
+nrpkg() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: nrpkg <package>"
+        return 1
+    fi
+    nix run nixpkgs#"$1"
+}
+
+nspkg() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: nspkg <package>"
+        return 1
+    fi
+    nix shell nixpkgs#"$1"
+}
+
+alias nfupdate='nix flake update --commit-lock-file --flake /nix/conf'
+alias nupdate='nixos-rebuild --use-remote-sudo --show-trace -I nixos-config=/nix/conf switch'

@@ -9,13 +9,18 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.musholic = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ]; # enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
       rofi-power-menu
       google-chrome
       polybar
       maim # for screenshots
+      xfce.thunar
+      clipse
+      wl-clipboard
+      grim
+      slurp
     ];
     shell = pkgs.zsh;
   };
@@ -74,6 +79,12 @@
 
     services.ssh-agent.enable = true;
 
+    programs.zsh = {
+      enable = true;
+      shellAliases = {
+        update2 = "nixos-rebuild --use-remote-sudo --show-trace -I nixos-config=/nix/conf switch";
+      };
+    };
   };
 }
 
