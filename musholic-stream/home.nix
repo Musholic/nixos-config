@@ -1,5 +1,5 @@
 
-{ config, lib, inputs, pkgs, pkgs-distroav, ... }:
+{ config, lib, inputs, pkgs, pkgs-distroav, pkgs-unstable, ... }:
 {
   imports =
     [ 
@@ -21,8 +21,14 @@
       wl-clipboard
       grim
       slurp
+      ## For use with zeditor
+      pkgs-unstable.zed-editor
+      nixd
+      nil
+      alejandra
     ];
     shell = pkgs.zsh;
+    hashedPasswordFile = "/nix/persist/hashedPassword.txt";
   };
 
   home-manager.backupFileExtension = "hm-backup";

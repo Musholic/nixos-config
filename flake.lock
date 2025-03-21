@@ -67,12 +67,29 @@
         "url": "file:///home/musholic/git/nixpkgs"
       }
     },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1742422364,
+        "narHash": "sha256-mNqIplmEohk5jRkqYqG19GA8MbQ/D4gQSK0Mu4LvfRQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a84ebe20c6bc2ecbcfb000a50776219f48d134cc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
         "nixpkgs-distroav": "nixpkgs-distroav",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "vundle": "vundle",
         "zgen": "zgen"
       }

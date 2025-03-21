@@ -44,7 +44,7 @@ fi
 #set some env for oh-my-zsh
 COMPLETION_WAITING_DOTS="true"
 DISABLE_AUTO_UPDATE="true"
- 
+
 alias yin='yay --needed -S'
 alias yinnoconfirm='yay --needed --noconfirm -S'
 alias yins='yay -U'
@@ -83,7 +83,7 @@ alias gfb="git flow bugfix"
 alias gfr="git flow release"
 alias gfh="git flow hotfix"
 
-alias z="zathura"
+alias z="zeditor"
 alias v="vim"
 alias f="feh -."
 
@@ -114,13 +114,13 @@ zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
 # Other
-eval $(dircolors -b ~/.dir_colors) 
+eval $(dircolors -b ~/.dir_colors)
 setopt histignorealldups
 unsetopt hist_save_by_copy
 
 #Fix vim typing
 bindkey "^?" backward-delete-char
-bindkey "^W" backward-kill-word 
+bindkey "^W" backward-kill-word
 bindkey "^H" backward-delete-char
 bindkey "^U" backward-kill-line
 
@@ -181,10 +181,12 @@ fi
 
 nrpkg() {
     if [[ -z "$1" ]]; then
-        echo "Usage: nrpkg <package>"
+        echo "Usage: nrpkg <package> [additional args]"
         return 1
     fi
-    nix run nixpkgs#"$1"
+    local package="$1"
+    shift
+    nix run nixpkgs#"$package" "$@"
 }
 
 nspkg() {

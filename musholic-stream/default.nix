@@ -3,6 +3,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware.nix
+      ./backup_boot.nix
       inputs.impermanence.nixosModules.impermanence
     ];
 
@@ -32,6 +33,8 @@
 
         device = "nodev";
         efiSupport = true;
+        useOSProber = true;
+        default = "saved";
       };
     };
   };
@@ -211,10 +214,18 @@
     moreutils
   ];
 
+  users.mutableUsers = true; # Prevent accidental user/password deletion
+
   environment.persistence."/nix/persist/system" = {
     hideMounts = true;
     directories = [
       "/var/lib/nixos"
+      "/etc/NetworkManager/system-connections"
+      "/root/nixos"
+    ];
+
+    files = [
+      "/etc/machine-id"
     ];
   };
 
