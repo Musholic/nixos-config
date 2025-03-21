@@ -52,19 +52,16 @@
         "type": "github"
       }
     },
-    "nixpkgs-distroav": {
+    "nixpkgs-distroav-patch": {
+      "flake": false,
       "locked": {
-        "lastModified": 1739973133,
-        "narHash": "sha256-3iQuImmD9DvbTqZ3Zt1K5pxMpwn2Jsd4nIi3fG8Kf9w=",
-        "ref": "refs/heads/update-obs-ndi",
-        "rev": "d615936b2a20aacf293ab47556964daf305766ae",
-        "revCount": 2,
-        "type": "git",
-        "url": "file:///home/musholic/git/nixpkgs"
+        "narHash": "sha256-wYSYN8SSlp+zlG7G3Mf3/s6Ai/Y8370vWucdYrKQ77I=",
+        "type": "file",
+        "url": "https://github.com/Musholic/nixpkgs/pull/1.patch"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/musholic/git/nixpkgs"
+        "type": "file",
+        "url": "https://github.com/Musholic/nixpkgs/pull/1.patch"
       }
     },
     "nixpkgs-unstable": {
@@ -88,7 +85,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-distroav": "nixpkgs-distroav",
+        "nixpkgs-distroav-patch": "nixpkgs-distroav-patch",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "vundle": "vundle",
         "zgen": "zgen"

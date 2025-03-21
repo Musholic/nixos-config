@@ -4,7 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-distroav.url = "git+file:///home/musholic/git/nixpkgs";
+    nixpkgs-distroav-patch = {
+      url = "https://github.com/Musholic/nixpkgs/pull/1.patch";
+      flake = false;
+    };
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
@@ -20,7 +23,7 @@
 
   outputs = inputs @ {
     nixpkgs,
-    nixpkgs-distroav,
+    nixpkgs-distroav-patch,
     nixpkgs-unstable,
     ...
   }: {
@@ -29,14 +32,17 @@
       system = "x86_64-linux";
       specialArgs = {
         inherit inputs;
-        pkgs-distroav = import nixpkgs-distroav {
-          inherit system;
-          config.allowUnfree = true;
-        };
-        pkgs-unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-        };
+        pkgs-unstable = let
+          nixpkgs-patched = (import nixpkgs-unstable {inherit system;}).applyPatches {
+            name = "nixpkgs-distroav-patch";
+            src = nixpkgs-unstable;
+            patches = [nixpkgs-distroav-patch];
+          };
+        in
+          import nixpkgs-patched {
+            inherit system;
+            config.allowUnfree = true;
+          };
       };
       modules = [
         ./musholic-stream

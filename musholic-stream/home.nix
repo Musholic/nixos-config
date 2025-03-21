@@ -2,7 +2,6 @@
   lib,
   inputs,
   pkgs,
-  pkgs-distroav,
   pkgs-unstable,
   ...
 }: {
@@ -50,7 +49,7 @@
     home.stateVersion = "24.11";
 
     home.persistence."/nix/conf/home" = {
-      files = with pkgs; let
+      files = let
         listFilesRecursive = dir: acc:
           lib.flatten (lib.mapAttrsToList
             (k: v:
@@ -84,7 +83,7 @@
 
     programs.obs-studio = {
       enable = true;
-      plugins = with pkgs-distroav.obs-studio-plugins; [
+      plugins = with pkgs-unstable.obs-studio-plugins; [
         distroav
       ];
     };
