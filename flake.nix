@@ -18,7 +18,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-distroav, nixpkgs-unstable, impermanence, home-manager, ... }@inputs: {
+  outputs = inputs @ {
+    nixpkgs,
+    nixpkgs-distroav,
+    nixpkgs-unstable,
+    ...
+  }: {
     # Please replace my-nixos with your hostname
     nixosConfigurations.nixos-musholic-stream = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
@@ -39,5 +44,4 @@
       ];
     };
   };
-
 }

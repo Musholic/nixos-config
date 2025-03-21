@@ -1,15 +1,19 @@
-
-{ config, lib, inputs, pkgs, pkgs-distroav, pkgs-unstable, ... }:
 {
-  imports =
-    [ 
-      inputs.home-manager.nixosModules.home-manager
-    ];
+  lib,
+  inputs,
+  pkgs,
+  pkgs-distroav,
+  pkgs-unstable,
+  ...
+}: {
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.musholic = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # enable ‘sudo’ for the user.
+    extraGroups = ["wheel"]; # enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
       rofi-power-menu
@@ -32,13 +36,13 @@
   };
 
   home-manager.backupFileExtension = "hm-backup";
-  home-manager.users.musholic = { pkgs, ... }: {
-    imports = [ 
+  home-manager.users.musholic = {pkgs, ...}: {
+    imports = [
       inputs.impermanence.homeManagerModules.impermanence
     ];
     home.sessionVariables = {
       DISK = "/disk";
-    }; 
+    };
     xsession.enable = true;
 
     # The state version is required and should stay at the version you
@@ -47,15 +51,17 @@
 
     home.persistence."/nix/conf/home" = {
       files = with pkgs; let
-        listFilesRecursive = dir: acc: lib.flatten (lib.mapAttrsToList
-          (k: v: if k == ".nolink" then []
-          else if ! builtins.pathExists  (dir + "/${acc}${k}/.nolink") then
-          acc + k
-          else
-          listFilesRecursive dir (acc + k + "/"))
-          (builtins.readDir ( dir + "/${acc}")));
-  
-        in listFilesRecursive ../home "";
+        listFilesRecursive = dir: acc:
+          lib.flatten (lib.mapAttrsToList
+            (k: v:
+              if k == ".nolink"
+              then []
+              else if ! builtins.pathExists (dir + "/${acc}${k}/.nolink")
+              then acc + k
+              else listFilesRecursive dir (acc + k + "/"))
+            (builtins.readDir (dir + "/${acc}")));
+      in
+        listFilesRecursive ../home "";
     };
     home.file = {
       ".vim/bundle/Vundle.vim".source = inputs.vundle;
@@ -66,13 +72,13 @@
     programs.home-manager.enable = true;
 
     programs.rofi = {
-      enable=true;
+      enable = true;
       package = pkgs.rofi-wayland;
       theme = "Adapta-Nokto";
     };
 
     programs.waybar = {
-      enable=true;
+      enable = true;
       systemd.enable = true;
     };
 
@@ -93,4 +99,3 @@
     };
   };
 }
-
