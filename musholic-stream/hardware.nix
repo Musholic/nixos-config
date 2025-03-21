@@ -19,6 +19,7 @@
   boot.initrd.postDeviceCommands = ''
     mkdir -p /mnt-root/disk0
     mount -t ext4 /dev/disk/by-label/nixos_stream /mnt-root/disk0
+    mkdir -p /mnt-root/disk0/nixos_roots/current
   '';
 
   fileSystems."/" = {

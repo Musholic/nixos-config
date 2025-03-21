@@ -5,6 +5,7 @@
     nixpkgs-upstream.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:Musholic/nixpkgs/nixos-24.11";
     # nixpkgs.url = "git+file:///home/musholic/git/nixpkgs-24.11";
+    # TODO: use another git repository to store the patches (avoid flake.lock updates at each rebuild)
     nixpkgs-patch-1 = {
       url = "./patches/grub_skip_bind_mount.patch";
       flake = false;

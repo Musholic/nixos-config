@@ -47,6 +47,13 @@
     # The state version is required and should stay at the version you
     # originally installed.
     home.stateVersion = "24.11";
+    home.persistence."/nix/persist/home" = {
+      files = [
+        ".local/share/zed"
+        ".config/google-chrome"
+        ".zsh_history"
+      ];
+    };
 
     home.persistence."/nix/conf/home" = {
       files = let

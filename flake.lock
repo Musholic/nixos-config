@@ -57,11 +57,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-izSWoNGtupfRsJtu0rYautOyNyHEmT9JQtZRFWEqAME=",
-        "path": "/nix/store/6h5kqv7alqfxlfncc0iwzvaxmp8ar61s-source/patches/grub_skip_bind_mount.patch",
+        "path": "/nix/store/gynzx3zn3i730nbn61mcc3cfgxg6c83b-source/patches/grub_skip_bind_mount.patch",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/6h5kqv7alqfxlfncc0iwzvaxmp8ar61s-source/patches/grub_skip_bind_mount.patch",
+        "path": "/nix/store/gynzx3zn3i730nbn61mcc3cfgxg6c83b-source/patches/grub_skip_bind_mount.patch",
         "type": "path"
       }
     },
@@ -86,11 +86,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-cm5RuArSYsqH2YDFi9b89mMyHZuz0/uVmrYzzwTzhdQ=",
-        "path": "/nix/store/6h5kqv7alqfxlfncc0iwzvaxmp8ar61s-source/patches/update_distroav.patch",
+        "path": "/nix/store/gynzx3zn3i730nbn61mcc3cfgxg6c83b-source/patches/update_distroav.patch",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/6h5kqv7alqfxlfncc0iwzvaxmp8ar61s-source/patches/update_distroav.patch",
+        "path": "/nix/store/gynzx3zn3i730nbn61mcc3cfgxg6c83b-source/patches/update_distroav.patch",
         "type": "path"
       }
     },
