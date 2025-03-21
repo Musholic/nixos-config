@@ -38,33 +38,63 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1742268799,
-        "narHash": "sha256-IhnK4LhkBlf14/F8THvUy3xi/TxSQkp9hikfDZRD4Ic=",
-        "owner": "NixOS",
+        "lastModified": 1742564635,
+        "narHash": "sha256-8oIXMgyvhUj9WkjLCZkj6+SL3jjnToNQpFw/K2310zQ=",
+        "owner": "Musholic",
         "repo": "nixpkgs",
-        "rev": "da044451c6a70518db5b730fe277b70f494188f1",
+        "rev": "ca8ec36c90f78a30e2799b3adf99dce777aa53a9",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "Musholic",
         "ref": "nixos-24.11",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
-    "nixpkgs-distroav-patch": {
+    "nixpkgs-patch-1": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-wYSYN8SSlp+zlG7G3Mf3/s6Ai/Y8370vWucdYrKQ77I=",
-        "type": "file",
-        "url": "https://github.com/Musholic/nixpkgs/pull/1.patch"
+        "lastModified": 1,
+        "narHash": "sha256-izSWoNGtupfRsJtu0rYautOyNyHEmT9JQtZRFWEqAME=",
+        "path": "/nix/store/6h5kqv7alqfxlfncc0iwzvaxmp8ar61s-source/patches/grub_skip_bind_mount.patch",
+        "type": "path"
       },
       "original": {
-        "type": "file",
-        "url": "https://github.com/Musholic/nixpkgs/pull/1.patch"
+        "path": "/nix/store/6h5kqv7alqfxlfncc0iwzvaxmp8ar61s-source/patches/grub_skip_bind_mount.patch",
+        "type": "path"
       }
     },
     "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1742564642,
+        "narHash": "sha256-YJPDYywUBPzm3X4Vk6jBWMJYQVoozLqo2wWtE5MAo5I=",
+        "owner": "Musholic",
+        "repo": "nixpkgs",
+        "rev": "a81ed6ae7b7768a43fd5721de6d64dac3d81bf3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Musholic",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable-patch-1": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-cm5RuArSYsqH2YDFi9b89mMyHZuz0/uVmrYzzwTzhdQ=",
+        "path": "/nix/store/6h5kqv7alqfxlfncc0iwzvaxmp8ar61s-source/patches/update_distroav.patch",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/6h5kqv7alqfxlfncc0iwzvaxmp8ar61s-source/patches/update_distroav.patch",
+        "type": "path"
+      }
+    },
+    "nixpkgs-unstable-upstream": {
       "locked": {
         "lastModified": 1742422364,
         "narHash": "sha256-mNqIplmEohk5jRkqYqG19GA8MbQ/D4gQSK0Mu4LvfRQ=",
@@ -80,13 +110,32 @@
         "type": "github"
       }
     },
+    "nixpkgs-upstream": {
+      "locked": {
+        "lastModified": 1742388435,
+        "narHash": "sha256-GheQGRNYAhHsvPxWVOhAmg9lZKkis22UPbEHlmZMthg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b75693fb46bfaf09e662d09ec076c5a162efa9f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-distroav-patch": "nixpkgs-distroav-patch",
+        "nixpkgs-patch-1": "nixpkgs-patch-1",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-unstable-patch-1": "nixpkgs-unstable-patch-1",
+        "nixpkgs-unstable-upstream": "nixpkgs-unstable-upstream",
+        "nixpkgs-upstream": "nixpkgs-upstream",
         "vundle": "vundle",
         "zgen": "zgen"
       }

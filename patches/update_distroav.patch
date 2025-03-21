@@ -1,0 +1,109 @@
+diff --git a/pkgs/applications/video/obs-studio/plugins/default.nix b/pkgs/applications/video/obs-studio/plugins/default.nix
+index 2eca0024434925..5362498eda047c 100644
+--- a/pkgs/applications/video/obs-studio/plugins/default.nix
++++ b/pkgs/applications/video/obs-studio/plugins/default.nix
+@@ -8,6 +8,8 @@
+ {
+   advanced-scene-switcher = qt6Packages.callPackage ./advanced-scene-switcher { };
+ 
++  distroav = qt6Packages.callPackage ./distroav { };
++
+   droidcam-obs = callPackage ./droidcam-obs { };
+ 
+   input-overlay = qt6Packages.callPackage ./input-overlay.nix { };
+@@ -40,8 +42,6 @@
+ 
+   obs-mute-filter = callPackage ./obs-mute-filter.nix { };
+ 
+-  obs-ndi = qt6Packages.callPackage ./obs-ndi { };
+-
+   obs-nvfbc = callPackage ./obs-nvfbc.nix { };
+ 
+   obs-pipewire-audio-capture = callPackage ./obs-pipewire-audio-capture.nix { };
+diff --git a/pkgs/applications/video/obs-studio/plugins/obs-ndi/default.nix b/pkgs/applications/video/obs-studio/plugins/distroav/default.nix
+similarity index 87%
+rename from pkgs/applications/video/obs-studio/plugins/obs-ndi/default.nix
+rename to pkgs/applications/video/obs-studio/plugins/distroav/default.nix
+index e7b2784fff6e82..06e2fbb25c1454 100644
+--- a/pkgs/applications/video/obs-studio/plugins/obs-ndi/default.nix
++++ b/pkgs/applications/video/obs-studio/plugins/distroav/default.nix
+@@ -10,8 +10,8 @@
+ }:
+ 
+ stdenv.mkDerivation rec {
+-  pname = "obs-ndi";
+-  version = "4.14.1";
++  pname = "distroav";
++  version = "6.0.0";
+ 
+   nativeBuildInputs = [
+     cmake
+@@ -25,10 +25,10 @@ stdenv.mkDerivation rec {
+   ];
+ 
+   src = fetchFromGitHub {
+-    owner = "Palakis";
+-    repo = "obs-ndi";
++    owner = "DistroAV";
++    repo = "DistroAV";
+     rev = version;
+-    sha256 = "sha256-ex/fZmZpFM6GTKNBQClzSf6Ns0Yts5+0PAmf5mIQCwc=";
++    sha256 = "sha256-pr/5XCLo5fzergIQrYFC9o9K+KuP4leDk5/oRe5ct9Q=";
+   };
+ 
+   patches = [
+diff --git a/pkgs/applications/video/obs-studio/plugins/distroav/hardcode-ndi-path.patch b/pkgs/applications/video/obs-studio/plugins/distroav/hardcode-ndi-path.patch
+new file mode 100644
+index 00000000000000..0800a58e97c9a9
+--- /dev/null
++++ b/pkgs/applications/video/obs-studio/plugins/distroav/hardcode-ndi-path.patch
+@@ -0,0 +1,20 @@
++diff --git a/src/plugin-main.cpp b/src/plugin-main.cpp
++index ffaaea8..df70ae6 100644
++--- a/src/plugin-main.cpp
+++++ b/src/plugin-main.cpp
++@@ -383,14 +383,7 @@ const NDIlib_v5 *load_ndilib()
++ 	if (!temp_path.isEmpty()) {
++ 		locations << temp_path;
++ 	}
++-#if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
++-	// Linux, MacOS
++-	// https://github.com/DistroAV/DistroAV/blob/master/lib/ndi/NDI%20SDK%20Documentation.pdf
++-	// "6.1 LOCATING THE LIBRARY
++-	// ... the redistributable on MacOS is installed within `/usr/local/lib` ..."
++-	locations << "/usr/lib";
++-	locations << "/usr/local/lib";
++-#endif
+++        locations << "@NDI@/lib";
++ 	auto lib_path = QString();
++ #if defined(Q_OS_LINUX)
++ 	// Linux
+diff --git a/pkgs/applications/video/obs-studio/plugins/obs-ndi/hardcode-ndi-path.patch b/pkgs/applications/video/obs-studio/plugins/obs-ndi/hardcode-ndi-path.patch
+deleted file mode 100644
+index c8b400b682d841..00000000000000
+--- a/pkgs/applications/video/obs-studio/plugins/obs-ndi/hardcode-ndi-path.patch
++++ /dev/null
+@@ -1,16 +0,0 @@
+-diff --git a/src/plugin-main.cpp b/src/plugin-main.cpp
+-index 0d94add..617af73 100644
+---- a/src/plugin-main.cpp
+-+++ b/src/plugin-main.cpp
+-@@ -244,10 +244,7 @@ const NDIlib_v4 *load_ndilib()
+- 	if (!path.isEmpty()) {
+- 		locations << path;
+- 	}
+--#if defined(__linux__) || defined(__APPLE__)
+--	locations << "/usr/lib";
+--	locations << "/usr/local/lib";
+--#endif
+-+	locations << "@NDI@/lib";
+-	for (auto location : locations) {
+- 		path = QDir::cleanPath(
+- 			QDir(location).absoluteFilePath(NDILIB_LIBRARY_NAME));
+diff --git a/pkgs/development/libraries/ndi/version.json b/pkgs/development/libraries/ndi/version.json
+index 1631cd03e8fb35..6f91bd9b3d8467 100644
+--- a/pkgs/development/libraries/ndi/version.json
++++ b/pkgs/development/libraries/ndi/version.json
+@@ -1 +1 @@
+-{"hash": "sha256:0wh5bqy9xx08wnfah92pgs4f6xn6mwfyhwdzbhf5ghkbw8pc7z0w", "version": "5.6.1"}
++{"hash": "sha256:6iqjexwILth2muLpXWQjDVTvOuMq4jM8KBYnpPmViU8=", "version": "6.1.1"}
