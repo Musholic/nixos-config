@@ -7,6 +7,7 @@
     # Include the results of the hardware scan.
     ./hardware.nix
     ./backup_boot.nix
+    ./ram_boot.nix
     inputs.impermanence.nixosModules.impermanence
   ];
 
