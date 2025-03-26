@@ -151,10 +151,10 @@
     settings.allowAnonymousEdits = true;
   };
 
+  # TODO: add specialization notStreaming
   services.openvpn.servers = {
-    streamVPN    = { config = '' config /root/nixos/openvpn/openvpn.ovpn ''; };
+    streamVPN = {config = ''config /root/nixos/openvpn/openvpn.ovpn '';};
   };
-
 
   # Allow unfree license
   nixpkgs.config.allowUnfree = true;

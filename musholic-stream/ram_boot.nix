@@ -3,6 +3,7 @@
   pkgs,
   ...
 }: {
+  # TODO: add option isRamBoot
   specialisation = {
     ram.configuration = {
       boot.initrd = {
@@ -29,11 +30,6 @@
         fsType = "none";
         options = ["bind"];
       };
-
-      fileSystems."/disk" = lib.mkForce lib.unset;
-      fileSystems."/nix" = lib.mkForce lib.unset;
-      fileSystems."/boot/efi" = lib.mkForce lib.unset;
-      lib.removeAttrs fileSystems ["/disk" "/nix" "/boot/efi"];
     };
   };
 }
