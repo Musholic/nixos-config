@@ -4,19 +4,11 @@
   inputs = {
     nixpkgs-upstream.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:Musholic/nixpkgs/nixos-24.11";
-    # nixpkgs.url = "git+file:///home/musholic/git/nixpkgs-24.11";
-    # TODO: use another git repository to store the patches (avoid flake.lock updates at each rebuild)
     nixpkgs-patch-1 = {
-      url = "./patches/grub_skip_bind_mount.patch";
+      url = "https://github.com/Musholic/nixpkgs/commit/a290eed49176a0ed152529ecc33c62b1441949de.patch";
       flake = false;
     };
-    nixpkgs-unstable-upstream.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:Musholic/nixpkgs/nixos-unstable";
-    # nixpkgs-unstable.url = "git+file:///home/musholic/git/nixpkgs-unstable";
-    nixpkgs-unstable-patch-1 = {
-      url = "./patches/update_distroav.patch";
-      flake = false;
-    };
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
@@ -39,10 +31,17 @@
       system = "x86_64-linux";
       specialArgs = {
         inherit inputs;
-        pkgs-unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-        };
+        pkgs-unstable = let
+          nixpkgs-patched = (import nixpkgs-unstable {inherit system;}).applyPatches {
+            name = "nixpkgs-distroav-patch";
+            src = nixpkgs-unstable;
+            patches = [./patches/update_distroav.patch];
+          };
+        in
+          import nixpkgs-patched {
+            inherit system;
+            config.allowUnfree = true;
+          };
       };
       modules = [
         ./musholic-stream
