@@ -51,7 +51,9 @@
       files = [
         ".local/share/zed"
         ".config/google-chrome"
+        ".config/obs-studio"
         ".zsh_history"
+        ".ssh"
       ];
     };
 
