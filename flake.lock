@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742234739,
-        "narHash": "sha256-zFL6zsf/5OztR1NSNQF33dvS1fL/BzVUjabZq4qrtY4=",
+        "lastModified": 1742655702,
+        "narHash": "sha256-jbqlw4sPArFtNtA1s3kLg7/A4fzP4GLk9bGbtUJg0JQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f6af7280a3390e65c2ad8fd059cdc303426cbd59",
+        "rev": "0948aeedc296f964140d9429223c7e4a0702a1ff",
         "type": "github"
       },
       "original": {
@@ -38,11 +38,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1742564635,
-        "narHash": "sha256-8oIXMgyvhUj9WkjLCZkj6+SL3jjnToNQpFw/K2310zQ=",
+        "lastModified": 1742993451,
+        "narHash": "sha256-09nJ1BEeW2KQTFNlNg1kFhkRV+ztY5bUxaySMymvMt8=",
         "owner": "Musholic",
         "repo": "nixpkgs",
-        "rev": "ca8ec36c90f78a30e2799b3adf99dce777aa53a9",
+        "rev": "c91e05d80e5a0c841fc1527d66b97fd2a51e98ff",
         "type": "github"
       },
       "original": {
@@ -55,52 +55,22 @@
     "nixpkgs-patch-1": {
       "flake": false,
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-izSWoNGtupfRsJtu0rYautOyNyHEmT9JQtZRFWEqAME=",
-        "path": "/nix/store/jjrqw9hklazsy1qgpkg6mij564v8xwzk-source/patches/grub_skip_bind_mount.patch",
-        "type": "path"
+        "narHash": "sha256-fmHRAfr4VXe3hH7X6XsbqEiwgAhZFa++eJKKwELOuRc=",
+        "type": "file",
+        "url": "https://github.com/Musholic/nixpkgs/commit/a290eed49176a0ed152529ecc33c62b1441949de.patch"
       },
       "original": {
-        "path": "/nix/store/jjrqw9hklazsy1qgpkg6mij564v8xwzk-source/patches/grub_skip_bind_mount.patch",
-        "type": "path"
+        "type": "file",
+        "url": "https://github.com/Musholic/nixpkgs/commit/a290eed49176a0ed152529ecc33c62b1441949de.patch"
       }
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1742564642,
-        "narHash": "sha256-YJPDYywUBPzm3X4Vk6jBWMJYQVoozLqo2wWtE5MAo5I=",
-        "owner": "Musholic",
-        "repo": "nixpkgs",
-        "rev": "a81ed6ae7b7768a43fd5721de6d64dac3d81bf3c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Musholic",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-unstable-patch-1": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-cm5RuArSYsqH2YDFi9b89mMyHZuz0/uVmrYzzwTzhdQ=",
-        "path": "/nix/store/jjrqw9hklazsy1qgpkg6mij564v8xwzk-source/patches/update_distroav.patch",
-        "type": "path"
-      },
-      "original": {
-        "path": "/nix/store/jjrqw9hklazsy1qgpkg6mij564v8xwzk-source/patches/update_distroav.patch",
-        "type": "path"
-      }
-    },
-    "nixpkgs-unstable-upstream": {
-      "locked": {
-        "lastModified": 1742422364,
-        "narHash": "sha256-mNqIplmEohk5jRkqYqG19GA8MbQ/D4gQSK0Mu4LvfRQ=",
+        "lastModified": 1742889210,
+        "narHash": "sha256-hw63HnwnqU3ZQfsMclLhMvOezpM7RSB0dMAtD5/sOiw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a84ebe20c6bc2ecbcfb000a50776219f48d134cc",
+        "rev": "698214a32beb4f4c8e3942372c694f40848b360d",
         "type": "github"
       },
       "original": {
@@ -112,11 +82,11 @@
     },
     "nixpkgs-upstream": {
       "locked": {
-        "lastModified": 1742388435,
-        "narHash": "sha256-GheQGRNYAhHsvPxWVOhAmg9lZKkis22UPbEHlmZMthg=",
+        "lastModified": 1742751704,
+        "narHash": "sha256-rBfc+H1dDBUQ2mgVITMGBPI1PGuCznf9rcWX/XIULyE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b75693fb46bfaf09e662d09ec076c5a162efa9f6",
+        "rev": "f0946fa5f1fb876a9dc2e1850d9d3a4e3f914092",
         "type": "github"
       },
       "original": {
@@ -133,8 +103,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-1": "nixpkgs-patch-1",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixpkgs-unstable-patch-1": "nixpkgs-unstable-patch-1",
-        "nixpkgs-unstable-upstream": "nixpkgs-unstable-upstream",
         "nixpkgs-upstream": "nixpkgs-upstream",
         "vundle": "vundle",
         "zgen": "zgen"
