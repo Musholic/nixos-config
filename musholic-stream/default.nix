@@ -66,6 +66,7 @@
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.wayland.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "fr";
@@ -252,6 +253,8 @@
       userServices = true;
     };
   };
+
+  services.gnome.gnome-keyring.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
