@@ -1,0 +1,29 @@
+#!/bin/sh
+# This is intended as a replacement of vim in most cases
+
+active_window_id=$(hyprctl activewindow -j | jq -r '.address')
+active_workspace=$(hyprctl activewindow -j | jq -r '.workspace.id')
+
+# Move the window to a special workspace but stay on current workspace
+hyprctl -q dispatch movetoworkspacesilent special:magic,address:$active_window_id
+
+# Check if the file is in a git repository
+file_path=$(realpath "$1" 2>/dev/null)
+if [ -n "$file_path" ]; then
+    # Find the git root directory
+    git_dir=$(cd "$(dirname "$file_path")" && git rev-parse --show-toplevel 2>/dev/null)
+
+    if [ -n "$git_dir" ]; then
+        # If file is in a git directory, open zed with the git directory as workspace
+        zed -n "$git_dir" --wait "$@"
+    else
+        # If not in a git directory, open normally
+        zed -n --wait "$@"
+    fi
+else
+    # If there's no valid file path, just open zed normally
+    zed -n --wait "$@"
+fi
+
+# Move the window back to its original workspace
+hyprctl -q dispatch movetoworkspacesilent $active_workspace,address:$active_window_id

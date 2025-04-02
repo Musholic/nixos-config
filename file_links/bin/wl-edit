@@ -1,0 +1,12 @@
+#!/bin/sh
+
+tmpFile=$(mktemp -u)
+
+wl-paste > "$tmpFile"
+
+# hyprctl keyword windowrulev2 unset,float,class:zed
+hyprctl keyword windowrulev2 float,class:zed
+zed --wait -n $tmpFile
+hyprctl keyword windowrulev2 unset,float,class:zed
+
+wl-copy < "$tmpFile"

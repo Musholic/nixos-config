@@ -1,0 +1,2 @@
+#!/bin/sh
+systemctl --user list-units --state=failed --no-legend --plain | awk '{print $1}' | xargs systemctl --user restart
