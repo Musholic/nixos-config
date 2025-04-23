@@ -4,15 +4,10 @@ type prompt > /dev/null 2>&1 && prompt off
 # Disable compfix due to "insecure" directory /nix/store
 ZSH_DISABLE_COMPFIX=true
 
-# Use zsh history on disk if available
-if [ -f "$DISK/user/appconfigs/.zsh_history" ]; then
-    HISTFILE="$DISK/user/appconfigs/.zsh_history"
-fi
-
 # Disable oh-my-zsh automatic update
 DISABLE_AUTO_UPDATE=true
 
-source "${HOME}/git/sys/zgen/zgen.zsh"
+source "${HOME}/sys/zgen/zgen.zsh"
 #
 # check if there's no init script
 if ! zgen saved; then

@@ -1,0 +1,20 @@
+diff --git a/cmd/optinix.go b/cmd/optinix.go
+index a48d5cb..e7117dd 100644
+--- a/cmd/optinix.go
++++ b/cmd/optinix.go
+@@ -31,15 +31,9 @@ func NewRootCmd(ctx context.Context, db *sql.DB, nixExpressions embed.FS) (*cobr
+ 		return nil, err
+ 	}
+ 
+-	do, err := nixExpressions.ReadFile("nix/darwin-options.nix")
+-	if err != nil {
+-		return nil, err
+-	}
+-
+ 	sources := entities.Sources{
+ 		NixOS:       string(no),
+ 		HomeManager: string(ho),
+-		Darwin:      string(do),
+ 	}
+ 
+ 	updateCmd := getUpdateCmd(ctx, db, sources)

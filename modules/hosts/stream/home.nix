@@ -2,25 +2,13 @@
   inputs,
   pkgs,
   pkgs-unstable,
+  pkgs-zed,
+  pkgs-optinix,
   ...
 }: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
   ];
-  nix.settings = {
-    trusted-users = ["musholic"];
-
-    substituters = [
-      "https://cache.nixos.org"
-      "https://nix-community.cachix.org"
-      "https://zed-industries.cachix.org"
-    ];
-
-    trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "zed-industries.cachix.org-1:QW3RoXK0Lm4ycmU5/3bmYRd3MLf4RbTGPqRulGlX5W0="
-    ];
-  };
   users.users.musholic = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "docker"];
@@ -36,10 +24,10 @@
     extraSpecialArgs = {
       inherit inputs;
       # Pass through the special package sets
-      inherit pkgs-unstable;
+      inherit pkgs-unstable pkgs-zed pkgs-optinix;
     };
     users.musholic = {...}: {
-      imports = [../../home-manager/home.nix];
+      imports = [../../../home-manager/home.nix];
     };
   };
 }

@@ -9,14 +9,10 @@
     ./backup_boot.nix
     ./ram_boot.nix
     ./options.nix
+    ./home.nix
     ./vm-specialization.nix
     ../../common
-    inputs.impermanence.nixosModules.impermanence
   ];
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  boot.kernel.sysctl."kernel.sysrq" = 1;
 
   boot = {
     kernelParams = ["i915.force_probe=7d55"];
@@ -50,38 +46,13 @@
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    useXkbConfig = true; # use xkb.options in tty.
-  };
-
-  services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
-  security.pam.services.sddm.enableGnomeKeyring = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb.layout = "fr";
-  services.xserver.xkb.options = "caps:escape";
-
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
-  programs.hyprland.withUWSM = true;
-
   services.xserver.videoDrivers = ["nvidia"];
+
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
@@ -136,16 +107,6 @@
     };
   };
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-  };
-
   services.hedgedoc = {
     enable = true;
     settings.port = 8001;
@@ -159,131 +120,4 @@
   services.openvpn.servers = {
     streamVPN = {config = ''config /root/nixos/openvpn/openvpn.ovpn '';};
   };
-
-  # Allow unfree license
-  nixpkgs.config.allowUnfree = true;
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    enableGlobalCompInit = false;
-  };
-
-  fonts.packages = with pkgs; [
-    # Default
-    dejavu_fonts
-    freefont_ttf
-    gyre-fonts # TrueType substitutes for standard PostScript fonts
-    liberation_ttf
-    unifont
-    noto-fonts-color-emoji
-    # Custom
-    noto-fonts
-    nerdfonts
-  ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim-full
-    wget
-    git
-    numlockx
-    autorandr
-    xfce.xfce4-power-manager
-    pasystray
-    blueman
-    sxhkd
-    htop
-    fzf
-    python3
-    kitty
-    ntfs3g
-    networkmanagerapplet
-    xfce.xfce4-notifyd
-    killall
-    pavucontrol
-    ruby
-    gnumake
-    gcc
-    cmake
-    pkg-config
-    gnupg
-    xsel
-    ranger
-    jq
-    yq
-    ncdu
-    ack
-    silver-searcher
-    feh
-    nix-search
-    manix
-    moreutils
-  ];
-
-  users.mutableUsers = true; # Prevent accidental user/password deletion
-
-  environment.persistence."/nix/persist/system" = {
-    hideMounts = true;
-    directories = [
-      "/var/lib/nixos"
-      "/etc/NetworkManager/system-connections"
-      "/root/nixos"
-    ];
-
-    files = [
-      "/etc/machine-id"
-    ];
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-  services.gpm.enable = true;
-
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    publish = {
-      enable = true;
-      userServices = true;
-    };
-  };
-
-  services.gnome.gnome-keyring.enable = true;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
-
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.11"; # Did you read the comment?
 }

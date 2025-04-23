@@ -1,5 +1,5 @@
 {
-  description = "System config";
+  description = "NixOS config for musholic stream host";
 
   inputs = {
     nixpkgs-upstream.url = "github:NixOS/nixpkgs/nixos-24.11";
@@ -21,6 +21,7 @@
       url = "github:tarjoilija/zgen";
       flake = false;
     };
+    optinix.url = "gitlab:hmajid2301/optinix";
   };
 
   outputs = inputs @ {
@@ -28,6 +29,7 @@
     nixpkgs-unstable,
     zed-preview,
     home-manager,
+    optinix,
     ...
   }: let
     system = "x86_64-linux";
@@ -43,10 +45,14 @@
         config.allowUnfree = true;
       };
     pkgs-zed = zed-preview.packages.${system}.default;
+
+    pkgs-optinix = optinix.packages.${system}.default.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or []) ++ [./patches/optinix-remove-darwin.patch];
+    });
   in {
     nixosConfigurations.nixos-musholic-stream = nixpkgs.lib.nixosSystem {
       specialArgs = {
-        inherit inputs pkgs-unstable pkgs-zed;
+        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix;
       };
       modules = [
         ./modules/hosts/stream
@@ -54,7 +60,7 @@
     };
     homeConfigurations.musholic = home-manager.lib.homeManagerConfiguration {
       extraSpecialArgs = {
-        inherit inputs pkgs-unstable pkgs-zed;
+        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix;
       };
       modules = [
         ./home-manager/home.nix
