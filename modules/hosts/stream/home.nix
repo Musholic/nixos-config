@@ -70,7 +70,7 @@
               else listFilesRecursive dir (acc + k + "/"))
             (builtins.readDir (dir + "/${acc}")));
       in
-        listFilesRecursive ../home "";
+        listFilesRecursive ../../../file_links "";
     };
     home.file = {
       ".vim/bundle/Vundle.vim".source = inputs.vundle;

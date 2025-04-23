@@ -44,8 +44,8 @@
           };
       };
       modules = [
-        ./musholic-stream
-        ./musholic-stream/home.nix
+        ./modules/hosts/stream
+        ./modules/hosts/stream/home.nix
       ];
     };
   };
