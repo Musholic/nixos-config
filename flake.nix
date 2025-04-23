@@ -16,6 +16,7 @@
       url = "github:VundleVim/Vundle.vim";
       flake = false;
     };
+    zed-preview.url = "github:Musholic/zed/v0.183.x";
     zgen = {
       url = "github:tarjoilija/zgen";
       flake = false;
@@ -25,27 +26,38 @@
   outputs = inputs @ {
     nixpkgs,
     nixpkgs-unstable,
+    zed-preview,
+    home-manager,
     ...
-  }: {
-    nixosConfigurations.nixos-musholic-stream = nixpkgs.lib.nixosSystem rec {
-      system = "x86_64-linux";
+  }: let
+    system = "x86_64-linux";
+    pkgs-unstable = let
+      nixpkgs-patched = (import nixpkgs-unstable {inherit system;}).applyPatches {
+        name = "nixpkgs-distroav-patch";
+        src = nixpkgs-unstable;
+        patches = [./patches/update_distroav.patch];
+      };
+    in
+      import nixpkgs-patched {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    pkgs-zed = zed-preview.packages.${system}.default;
+  in {
+    nixosConfigurations.nixos-musholic-stream = nixpkgs.lib.nixosSystem {
       specialArgs = {
-        inherit inputs;
-        pkgs-unstable = let
-          nixpkgs-patched = (import nixpkgs-unstable {inherit system;}).applyPatches {
-            name = "nixpkgs-distroav-patch";
-            src = nixpkgs-unstable;
-            patches = [./patches/update_distroav.patch];
-          };
-        in
-          import nixpkgs-patched {
-            inherit system;
-            config.allowUnfree = true;
-          };
+        inherit inputs pkgs-unstable pkgs-zed;
       };
       modules = [
         ./modules/hosts/stream
-        ./modules/hosts/stream/home.nix
+      ];
+    };
+    homeConfigurations.musholic = home-manager.lib.homeManagerConfiguration {
+      extraSpecialArgs = {
+        inherit inputs pkgs-unstable pkgs-zed;
+      };
+      modules = [
+        ./home-manager/home.nix
       ];
     };
   };

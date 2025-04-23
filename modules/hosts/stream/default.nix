@@ -10,6 +10,7 @@
     ./ram_boot.nix
     ./options.nix
     ./vm-specialization.nix
+    ../../common
     inputs.impermanence.nixosModules.impermanence
   ];
 
