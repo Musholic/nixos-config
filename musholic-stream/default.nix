@@ -8,6 +8,8 @@
     ./hardware.nix
     ./backup_boot.nix
     ./ram_boot.nix
+    ./options.nix
+    ./vm-specialization.nix
     inputs.impermanence.nixosModules.impermanence
   ];
 

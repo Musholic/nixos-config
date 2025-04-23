@@ -32,6 +32,7 @@
     ];
     shell = pkgs.zsh;
     hashedPasswordFile = "/nix/persist/hashedPassword.txt";
+    initialPassword = "tmpPass";
   };
 
   home-manager.backupFileExtension = "hm-backup";
@@ -47,7 +48,7 @@
     # The state version is required and should stay at the version you
     # originally installed.
     home.stateVersion = "24.11";
-    home.persistence."/nix/persist/home" = {
+    home.persistence."/nix/persist/file_links" = {
       files = [
         ".local/share/zed"
         ".config/google-chrome"
