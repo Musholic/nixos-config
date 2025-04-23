@@ -33,6 +33,14 @@
     ...
   }: let
     system = "x86_64-linux";
+    skimPluginOverlay = import ./overlays/skim.nix;
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = [
+        skimPluginOverlay
+      ];
+    };
     pkgs-unstable = let
       nixpkgs-patched = (import nixpkgs-unstable {inherit system;}).applyPatches {
         name = "nixpkgs-distroav-patch";
@@ -52,13 +60,14 @@
   in {
     nixosConfigurations.nixos-musholic-stream = nixpkgs.lib.nixosSystem {
       specialArgs = {
-        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix;
+        inherit inputs pkgs pkgs-unstable pkgs-zed pkgs-optinix;
       };
       modules = [
         ./modules/hosts/stream
       ];
     };
     homeConfigurations.musholic = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
       extraSpecialArgs = {
         inherit inputs pkgs-unstable pkgs-zed pkgs-optinix;
       };
