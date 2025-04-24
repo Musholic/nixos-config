@@ -41,11 +41,12 @@
 
       # NixOS specific aliases
       nfupdate = "nix flake update --commit-lock-file --flake /nix/conf";
-      nupdate = "nixos-rebuild --use-remote-sudo -I nixos-config=/nix/conf switch";
+      nupdate = "nixos-rebuild --use-remote-sudo -I nixos-config=/nix/conf --flake /nix/conf?submodules=1 switch";
       nopts-update = "nix run ~/git/nixos/optinix -- update";
     };
 
     # Custom functions
+    # TODO: put in an external file
     extraConfig = ''
       let carapace_completer = {|spans|
           carapace $spans.0 nushell ...$spans | from json
