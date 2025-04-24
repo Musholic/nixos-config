@@ -13,16 +13,18 @@
   home.persistence."/nix/persist/home" = {
     allowOther = true;
     files = [
-      ".local/share/zed"
-      ".config/google-chrome"
       ".zsh_history"
       ".config/nushell/history.txt"
-      ".ssh"
-      ".local/share/taskwarrior-tui"
-      ".task"
+    ];
+    directories = [
+      ".local/share/zed"
+      ".config/google-chrome"
       "git"
       ".steam"
       ".local/share/Steam"
+      ".ssh"
+      ".local/share/taskwarrior-tui"
+      ".task"
     ];
   };
 
