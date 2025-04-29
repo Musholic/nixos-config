@@ -52,6 +52,7 @@
 
   hardware.graphics = {
     enable = true;
+    extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
 
   hardware.bluetooth.enable = true;
