@@ -42,7 +42,7 @@
       # NixOS specific aliases
       nfupdate = "nix flake update --commit-lock-file --flake /nix/conf";
       nupdate = "nixos-rebuild --use-remote-sudo -I nixos-config=/nix/conf --flake /nix/conf?submodules=1 switch";
-      nopts-update = "nix run ~/git/nixos/optinix -- update";
+      nopts-update = "optinix -- update";
     };
 
     # Custom functions
