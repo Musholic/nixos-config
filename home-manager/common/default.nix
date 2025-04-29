@@ -15,6 +15,7 @@
     files = [
       ".zsh_history"
       ".config/nushell/history.txt"
+      ".config/nushell/history.sqlite3"
     ];
     directories = [
       ".local/share/zed"
@@ -107,7 +108,6 @@
     slurp
 
     pkgs-optinix
-    skim
     ranger
   ];
 }
