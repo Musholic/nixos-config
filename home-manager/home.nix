@@ -26,7 +26,7 @@
     ];
   };
 
-  home.persistence."/nix/conf/home" = {
+  home.persistence."/nix/conf/file_links" = {
     files = let
       listFilesRecursive = dir: acc:
         lib.flatten (lib.mapAttrsToList
