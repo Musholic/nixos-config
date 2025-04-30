@@ -2,6 +2,7 @@
   description = "NixOS config for musholic stream host";
 
   inputs = {
+    # Use nix-patcher until we get the following PR https://github.com/NixOS/nix/pull/6530
     nixpkgs-upstream.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:Musholic/nixpkgs/nixos-24.11";
     nixpkgs-patch-1 = {
@@ -16,7 +17,7 @@
       url = "github:VundleVim/Vundle.vim";
       flake = false;
     };
-    zed-preview.url = "github:Musholic/zed/v0.183.x";
+    zed-preview.url = "github:Musholic/zed/v0.184.x";
     zgen = {
       url = "github:tarjoilija/zgen";
       flake = false;
@@ -34,24 +35,24 @@
   }: let
     system = "x86_64-linux";
     skimPluginOverlay = import ./overlays/skim.nix;
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-      overlays = [
-        skimPluginOverlay
-      ];
-    };
-    pkgs-unstable = let
-      nixpkgs-patched = (import nixpkgs-unstable {inherit system;}).applyPatches {
+    pkgs = let
+      nixpkgs-patched = (import nixpkgs {inherit system;}).applyPatches {
         name = "nixpkgs-distroav-patch";
-        src = nixpkgs-unstable;
+        src = nixpkgs;
         patches = [./patches/update_distroav.patch];
       };
     in
       import nixpkgs-patched {
         inherit system;
         config.allowUnfree = true;
+        overlays = [
+          skimPluginOverlay
+        ];
       };
+    pkgs-unstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
     pkgs-zed = zed-preview.packages.${system}.default;
 
     pkgs-optinix = optinix.packages.${system}.default.overrideAttrs (oldAttrs: {

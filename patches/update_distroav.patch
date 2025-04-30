@@ -1,8 +1,8 @@
 diff --git a/pkgs/applications/video/obs-studio/plugins/default.nix b/pkgs/applications/video/obs-studio/plugins/default.nix
-index 2eca0024434925..5362498eda047c 100644
+index 8325b513f..aa61e06dc 100644
 --- a/pkgs/applications/video/obs-studio/plugins/default.nix
 +++ b/pkgs/applications/video/obs-studio/plugins/default.nix
-@@ -8,6 +8,8 @@
+@@ -12,6 +12,8 @@
  {
    advanced-scene-switcher = qt6Packages.callPackage ./advanced-scene-switcher { };
  
@@ -11,7 +11,7 @@ index 2eca0024434925..5362498eda047c 100644
    droidcam-obs = callPackage ./droidcam-obs { };
  
    input-overlay = qt6Packages.callPackage ./input-overlay.nix { };
-@@ -40,8 +42,6 @@
+@@ -42,8 +44,6 @@
  
    obs-mute-filter = callPackage ./obs-mute-filter.nix { };
  
@@ -24,7 +24,7 @@ diff --git a/pkgs/applications/video/obs-studio/plugins/obs-ndi/default.nix b/pk
 similarity index 87%
 rename from pkgs/applications/video/obs-studio/plugins/obs-ndi/default.nix
 rename to pkgs/applications/video/obs-studio/plugins/distroav/default.nix
-index e7b2784fff6e82..06e2fbb25c1454 100644
+index e7b2784ff..06e2fbb25 100644
 --- a/pkgs/applications/video/obs-studio/plugins/obs-ndi/default.nix
 +++ b/pkgs/applications/video/obs-studio/plugins/distroav/default.nix
 @@ -10,8 +10,8 @@
@@ -54,7 +54,7 @@ index e7b2784fff6e82..06e2fbb25c1454 100644
    patches = [
 diff --git a/pkgs/applications/video/obs-studio/plugins/distroav/hardcode-ndi-path.patch b/pkgs/applications/video/obs-studio/plugins/distroav/hardcode-ndi-path.patch
 new file mode 100644
-index 00000000000000..0800a58e97c9a9
+index 000000000..0800a58e9
 --- /dev/null
 +++ b/pkgs/applications/video/obs-studio/plugins/distroav/hardcode-ndi-path.patch
 @@ -0,0 +1,20 @@
@@ -80,7 +80,7 @@ index 00000000000000..0800a58e97c9a9
 + 	// Linux
 diff --git a/pkgs/applications/video/obs-studio/plugins/obs-ndi/hardcode-ndi-path.patch b/pkgs/applications/video/obs-studio/plugins/obs-ndi/hardcode-ndi-path.patch
 deleted file mode 100644
-index c8b400b682d841..00000000000000
+index c8b400b68..000000000
 --- a/pkgs/applications/video/obs-studio/plugins/obs-ndi/hardcode-ndi-path.patch
 +++ /dev/null
 @@ -1,16 +0,0 @@
@@ -101,7 +101,7 @@ index c8b400b682d841..00000000000000
 - 		path = QDir::cleanPath(
 - 			QDir(location).absoluteFilePath(NDILIB_LIBRARY_NAME));
 diff --git a/pkgs/development/libraries/ndi/version.json b/pkgs/development/libraries/ndi/version.json
-index 1631cd03e8fb35..6f91bd9b3d8467 100644
+index 1631cd03e..6f91bd9b3 100644
 --- a/pkgs/development/libraries/ndi/version.json
 +++ b/pkgs/development/libraries/ndi/version.json
 @@ -1 +1 @@
