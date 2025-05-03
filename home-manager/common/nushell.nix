@@ -159,7 +159,11 @@
         open ~/.local/share/optinix/options.db | get options | sk --format {get option_name} --preview {}
       }
       def npkgs-sk [] {
-        nix search --json --inputs-from /nix/conf nixpkgs ^ | from json | transpose name desc | sk --format {get name | str replace 'legacyPackages.x86_64-linux.' ""} --preview {get desc}
+        const nix_search_packages_file = "/tmp/nix_search_packages.json"
+        if not ($nix_search_packages_file | path exists) {
+            nix search --json --inputs-from /nix/conf nixpkgs ^ | from json | transpose name desc | save $nix_search_packages_file
+        }
+        open $nix_search_packages_file | sk --format {get name | str replace 'legacyPackages.x86_64-linux.' ""} --preview {get desc}
       }
 
       # Load git aliases
