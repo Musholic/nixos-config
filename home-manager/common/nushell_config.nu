@@ -22,29 +22,69 @@ $env.config.hooks.command_not_found = {
   print (command-not-found $command_name | str trim)
 }
 
-# Functions for nrpkg (nix run package)
-def --wrapped nrpkg [package: string, ...args] {
-  if ($package | is-empty) {
-    echo "Usage: nrpkg <package> <args>"
-    return 1
-  }
-
-  if ($args | length) > 0 {
-    nix run $"nixpkgs#($package)" -- ...$args
-  } else {
-    nix run $"nixpkgs#($package)"
-  }
+# Internal helper function for nrpkg, nrpkgi, and nrpkgu
+# Takes boolean flags to control --impure and the nixpkgs flake reference
+def --wrapped _nrpkg_internal [
+    package: string,     # The Nix package name
+    impure: bool,        # Whether to add the --impure flag
+    unstable: bool,      # Whether to use nixpkgs-unstable instead of nixpkgs
+    ...args: string      # Remaining arguments to pass to the command
+] {
+  let flake_ref = if $unstable { "nixpkgs-unstable" } else { "nixpkgs" }
+  ^nix run --inputs-from /nix/conf ...(
+    []
+    | (if $impure { append "--impure" })
+    | append $"($flake_ref)#($package)"
+    | append "--"
+    | append $args
+  )
+}
+# Nix run package
+def --wrapped nrpkg [package: string, ...args: string] {
+  _nrpkg_internal $package false false ...$args
 }
 
-# Function for nspkg (nix shell package)
-def --wrapped nspkg [...packages] {
-  if ($packages | is-empty) {
-    echo "Usage: nspkg <package1> [<package2> ...]"
-    return 1
-  }
+# Nix run package (impure variant)
+def --wrapped nrpkgi [package: string, ...args: string] {
+  _nrpkg_internal $package true false ...$args
+}
 
-  let pkg_list = ($packages | each { |pkg| $"nixpkgs#($pkg)" })
-  nix shell ...$pkg_list
+# Nix run package (unstable variant)
+def --wrapped nrpkgu [package: string, ...args: string] {
+  _nrpkg_internal $package false true ...$args
+}
+
+# Internal helper function for nspkg, nspkgi, and nspkgu
+def --wrapped _nspkg_internal [
+    impure: bool,        # Whether to add the --impure flag
+    unstable: bool,      # Whether to use nixpkgs-unstable instead of nixpkgs
+    ...packages: string  # List of Nix package names
+] {
+  let flake_ref = if $unstable { "nixpkgs-unstable" } else { "nixpkgs" }
+
+  ^nix shell --inputs-from /nix/conf ...(
+    []
+    | (if $impure { append "--impure" })
+    | append (
+        $packages
+        | each { |pkg| $"($flake_ref)#($pkg)" }
+    )
+  )
+}
+
+# Nix shell package
+def --wrapped nspkg [...packages: string] {
+  _nspkg_internal false false ...$packages
+}
+
+# Nix shell package (impure variant)
+def --wrapped nspkgi [...packages: string] {
+  _nspkg_internal true false ...$packages
+}
+
+# Nix shell package (unstable variant)
+def --wrapped nspkgu [...packages: string] {
+  _nspkg_internal false true ...$packages
 }
 
 $env.config.history = {
