@@ -126,6 +126,7 @@
     };
     seahorse.enable = true;
     fuse.userAllowOther = true;
+    steam.enable = true;
   };
 
   virtualisation.docker = {
@@ -163,6 +164,7 @@
     directories = [
       "/var/lib/bluetooth"
       "/var/lib/nixos"
+      "/var/lib/flatpak"
       "/etc/NetworkManager/system-connections"
       "/root/nixos"
     ];

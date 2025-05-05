@@ -16,13 +16,14 @@
       ".zsh_history"
       ".config/nushell/history.txt"
       ".config/nushell/history.sqlite3"
+      # Directory mount seems to cause issues for steam and flatpak for unkown reasons
+      ".local/share/flatpak"
+      ".var/app"
     ];
     directories = [
       ".local/share/zed"
       ".config/google-chrome"
       "git"
-      ".steam"
-      ".local/share/Steam"
       ".ssh"
       ".local/share/taskwarrior-tui"
       ".task"
@@ -43,6 +44,10 @@
     };
     zsh.enable = true;
     alacritty.enable = true;
+    vscode = {
+      enable = true;
+      package = pkgs.vscode.fhs;
+    };
   };
 
   services = {
@@ -109,5 +114,12 @@
 
     pkgs-optinix
     ranger
+
+    dotnet-sdk
+    omnisharp-roslyn
+    wineWowPackages.stable
+    spice
+    quickemu
+    unzip
   ];
 }
