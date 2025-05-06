@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  pkgs-unstable,
   pkgs-optinix,
   pkgs-zed,
   ...
@@ -118,8 +119,8 @@
     dotnet-sdk
     omnisharp-roslyn
     wineWowPackages.stable
-    spice
-    quickemu
+    pkgs-unstable.spice
+    pkgs-unstable.quickemu
     unzip
   ];
 }

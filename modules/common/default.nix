@@ -11,6 +11,7 @@
   nixpkgs.config.allowUnfree = true;
 
   boot.kernel.sysctl."kernel.sysrq" = 1;
+  boot.kernelParams = ["kvm.ignore_msrs=1"];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -52,7 +53,7 @@
 
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [nvidia-vaapi-driver];
+    # extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
 
   hardware.bluetooth.enable = true;
