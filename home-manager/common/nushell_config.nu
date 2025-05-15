@@ -22,12 +22,11 @@ $env.config.hooks.command_not_found = {
   print (command-not-found $command_name | str trim)
 }
 
-# Internal helper function for nrpkg, nrpkgi, and nrpkgu
-# Takes boolean flags to control --impure and the nixpkgs flake reference
-def --wrapped _nrpkg_internal [
+# Nix run package
+def --wrapped nrpkg [
     package: string,     # The Nix package name
-    impure: bool,        # Whether to add the --impure flag
-    unstable: bool,      # Whether to use nixpkgs-unstable instead of nixpkgs
+    --impure (-i),        # Whether to add the --impure flag
+    --unstable (-u),      # Whether to use nixpkgs-unstable instead of nixpkgs
     ...args: string      # Remaining arguments to pass to the command
 ] {
   let flake_ref = if $unstable { "nixpkgs-unstable" } else { "nixpkgs" }
@@ -39,25 +38,11 @@ def --wrapped _nrpkg_internal [
     | append $args
   )
 }
-# Nix run package
-def --wrapped nrpkg [package: string, ...args: string] {
-  _nrpkg_internal $package false false ...$args
-}
 
-# Nix run package (impure variant)
-def --wrapped nrpkgi [package: string, ...args: string] {
-  _nrpkg_internal $package true false ...$args
-}
-
-# Nix run package (unstable variant)
-def --wrapped nrpkgu [package: string, ...args: string] {
-  _nrpkg_internal $package false true ...$args
-}
-
-# Internal helper function for nspkg, nspkgi, and nspkgu
-def --wrapped _nspkg_internal [
-    impure: bool,        # Whether to add the --impure flag
-    unstable: bool,      # Whether to use nixpkgs-unstable instead of nixpkgs
+# Nix shell package
+def --wrapped nspkg [
+    --impure (-i),        # Whether to add the --impure flag
+    --unstable (-u),      # Whether to use nixpkgs-unstable instead of nixpkgs
     ...packages: string  # List of Nix package names
 ] {
   let flake_ref = if $unstable { "nixpkgs-unstable" } else { "nixpkgs" }
@@ -70,21 +55,6 @@ def --wrapped _nspkg_internal [
         | each { |pkg| $"($flake_ref)#($pkg)" }
     )
   )
-}
-
-# Nix shell package
-def --wrapped nspkg [...packages: string] {
-  _nspkg_internal false false ...$packages
-}
-
-# Nix shell package (impure variant)
-def --wrapped nspkgi [...packages: string] {
-  _nspkg_internal true false ...$packages
-}
-
-# Nix shell package (unstable variant)
-def --wrapped nspkgu [...packages: string] {
-  _nspkg_internal false true ...$packages
 }
 
 $env.config.history = {
