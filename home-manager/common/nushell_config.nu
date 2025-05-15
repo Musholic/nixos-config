@@ -148,12 +148,25 @@ def nhupdate [] {
 def nopts-sk [] {
   open ~/.local/share/optinix/options.db | get options | sk --format {get option_name} --preview {}
 }
+
+def _npkgs_sk_internal [
+    flake_ref: string,      # The Nix flake reference (e.g., "nixpkgs" or "nixpkgs-unstable")
+    cache_file_name: string # The path to the cache file
+] {
+  if not ($cache_file_name | path exists) {
+      ^nix search --json --inputs-from /nix/conf $flake_ref "" | from json | transpose name desc | save $cache_file_name
+  }
+  open $cache_file_name | sk --format {get name | str replace 'legacyPackages.x86_64-linux.' ""} --preview {get desc}
+}
+
 def npkgs-sk [] {
   const nix_search_packages_file = "/tmp/nix_search_packages.json"
-  if not ($nix_search_packages_file | path exists) {
-      nix search --json --inputs-from /nix/conf nixpkgs ^ | from json | transpose name desc | save $nix_search_packages_file
-  }
-  open $nix_search_packages_file | sk --format {get name | str replace 'legacyPackages.x86_64-linux.' ""} --preview {get desc}
+  _npkgs_sk_internal "nixpkgs" $nix_search_packages_file
+}
+
+def npkgsu-sk [] {
+  const nix_search_packages_unstable_file = "/tmp/nix_search_packages_unstable.json"
+  _npkgs_sk_internal "nixpkgs-unstable" $nix_search_packages_unstable_file
 }
 
 # Load git aliases
