@@ -30,6 +30,9 @@ def --wrapped nrpkg [
     ...args: string      # Remaining arguments to pass to the command
 ] {
   let flake_ref = if $unstable { "nixpkgs-unstable" } else { "nixpkgs" }
+  if $impure {
+    $env.NIXPKGS_ALLOW_UNFREE = 1
+  }
   ^nix run --inputs-from /nix/conf ...(
     []
     | (if $impure { append "--impure" })
@@ -46,7 +49,9 @@ def --wrapped nspkg [
     ...packages: string  # List of Nix package names
 ] {
   let flake_ref = if $unstable { "nixpkgs-unstable" } else { "nixpkgs" }
-
+  if $impure {
+    $env.NIXPKGS_ALLOW_UNFREE = 1
+  }
   ^nix shell --inputs-from /nix/conf ...(
     []
     | (if $impure { append "--impure" })
