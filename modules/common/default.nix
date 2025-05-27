@@ -144,7 +144,7 @@
     noto-fonts-color-emoji
     # Custom
     noto-fonts
-    (nerdfonts.override {fonts = ["Terminus"];})
+    nerd-fonts.terminess-ttf
   ];
 
   xdg.portal = {

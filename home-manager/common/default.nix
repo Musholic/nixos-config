@@ -49,6 +49,12 @@
       enable = true;
       package = pkgs.vscode.fhs;
     };
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 7d --keep 4";
+      flake = "/nix/conf?submodules=1";
+    };
   };
 
   services = {
@@ -80,7 +86,7 @@
     enable = true;
     theme = {
       name = "Adwaita-dark";
-      package = pkgs.gnome.gnome-themes-extra;
+      package = pkgs.gnome-themes-extra;
     };
   };
 
@@ -119,8 +125,8 @@
     dotnet-sdk
     omnisharp-roslyn
     wineWowPackages.stable
-    pkgs-unstable.spice
-    pkgs-unstable.quickemu
+    pkgs.spice
+    pkgs.quickemu
     unzip
   ];
 }

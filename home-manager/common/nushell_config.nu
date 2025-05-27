@@ -79,7 +79,7 @@ def skim-history [] {
       let count = ($entries | length)
       let last_entry = ($entries | last)
       # The most used directory
-      let cwd = ($entries | group-by cwd --to-table | sort-by { get items | length } | last | get group)
+      let cwd = ($entries | group-by cwd --to-table | sort-by { get items | length } | last | get cwd)
       let is_current_dir = ($count > 2 and $cwd == $env.PWD)
 
       # Create record with command information
@@ -116,10 +116,6 @@ $env.config.keybindings = (
   }
 )
 
-def nhupdate [] {
-    nrpkg home-manager switch
-}
-
 def nopts-sk [] {
   open ~/.local/share/optinix/options.db | get options | sk --format {get option_name} --preview {}
 }
@@ -147,7 +143,7 @@ def npkgsu-sk [] {
 # Load git aliases
 overlay use ($nu.default-config-dir | path join "git-aliases.nu")
 
-$env.config.hooks.pre_execution = {
+$env.config.hooks.pre_execution = $env.config.hooks.pre_execution | append {
   let last_cmd = (history | last | get command)
 
   # Skip if command is empty or very short
