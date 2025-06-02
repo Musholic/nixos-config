@@ -12,7 +12,8 @@
   home.stateVersion = "24.11";
 
   home.persistence."/nix/persist/home" = {
-    allowOther = true;
+    allowOther = false;
+    defaultDirectoryMethod = "symlink";
     files = [
       ".zsh_history"
       ".config/nushell/history.txt"
@@ -28,6 +29,7 @@
       ".ssh"
       ".local/share/taskwarrior-tui"
       ".task"
+      ".zgen"
     ];
   };
 
