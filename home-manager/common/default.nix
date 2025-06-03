@@ -130,5 +130,7 @@
     pkgs.spice
     pkgs.quickemu
     unzip
+
+    pulseaudio # For pactl utilities
   ];
 }
