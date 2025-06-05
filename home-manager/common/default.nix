@@ -57,6 +57,10 @@
       clean.extraArgs = "--keep-since 7d --keep 4";
       flake = "/nix/conf?submodules=1";
     };
+    direnv = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
   };
 
   services = {
@@ -132,5 +136,7 @@
     unzip
 
     pulseaudio # For pactl utilities
+
+    devenv
   ];
 }
