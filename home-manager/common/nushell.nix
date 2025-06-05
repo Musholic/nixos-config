@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.nushell = {
     enable = true;
     shellAliases = {
@@ -43,7 +47,7 @@
       nfupdate = "nix flake update --commit-lock-file --flake /nix/conf";
       nhupdate = "nh home switch /nix/conf?submodules=1";
       nupdate = "nh os switch /nix/conf?submodules=1";
-      nopts-update = "optinix -- update";
+      nopts-update = "optinix update";
     };
 
     # Custom functions
@@ -57,12 +61,7 @@
       executable = true;
     };
     "nushell/git-aliases.nu" = {
-      source = "${pkgs.fetchFromGitHub {
-        owner = "KamilKleina";
-        repo = "git-aliases.nu";
-        rev = "main";
-        sha256 = "sha256-h4cQwjiUMaHYDVgyaOAHC7sQJZNyyDy8kKP9/YoUy48=";
-      }}/git-aliases.nu";
+      source = "${inputs.nushell-plugin-git-aliases}/git-aliases.nu";
     };
   };
 
