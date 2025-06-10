@@ -16,6 +16,7 @@
     defaultDirectoryMethod = "symlink";
     files = [
       ".zsh_history"
+      ".config/rclone/rclone.conf"
       ".config/nushell/history.txt"
       ".config/nushell/history.sqlite3"
       # Directory mount seems to cause issues for steam and flatpak for unkown reasons
@@ -24,6 +25,7 @@
     ];
     directories = [
       ".local/share/zed"
+      ".local/share/direnv"
       ".config/google-chrome"
       "git"
       ".ssh"
@@ -138,5 +140,6 @@
     pulseaudio # For pactl utilities
 
     devenv
+    rclone
   ];
 }
