@@ -12,10 +12,10 @@
     "edit_prediction_provider": "zed"
   },
   "vim_mode": true,
-  "assistant": {
+  "agent": {
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-latest"
+      "model": "claude-sonnet-4-thinking"
     },
     "version": "2"
   },
