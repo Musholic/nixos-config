@@ -1,21 +1,18 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware.nix
-    ./backup_boot.nix
     ./ram_boot.nix
-    ./options.nix
     ./home.nix
     ./vm-specialization.nix
     ../../common
   ];
 
+  disk.rootDiskLabel = "nixos_stream";
+
   boot = {
     kernelParams = ["i915.force_probe=7d55"];
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_14;
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -116,8 +113,11 @@
     settings.allowAnonymousEdits = true;
   };
 
-  # TODO: add specialization notStreaming
-  services.openvpn.servers = {
-    streamVPN = {config = ''config /root/nixos/openvpn/openvpn.ovpn '';};
+  specialisation = {
+    streaming.configuration = {
+      services.openvpn.servers = {
+        streamVPN = {config = ''config /root/nixos/openvpn/openvpn.ovpn '';};
+      };
+    };
   };
 }

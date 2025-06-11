@@ -18,7 +18,7 @@
 
   boot.initrd.postDeviceCommands = ''
     mkdir -p /mnt-root/disk0
-    mount -t ext4 /dev/disk/by-label/${config.musholic.rootDiskLabel} /mnt-root/disk0
+    mount -t ext4 /dev/disk/by-label/${config.disk.rootDiskLabel} /mnt-root/disk0
     mkdir -p /mnt-root/disk0/nixos_roots/current
     echo "Creating required persist directory"
     mkdir -p /mnt-root/disk0/nix/persist/system/var/lib/nixos
@@ -31,7 +31,7 @@
   };
 
   fileSystems."/disk" = {
-    device = "/dev/disk/by-label/${config.musholic.rootDiskLabel}";
+    device = "/dev/disk/by-label/${config.disk.rootDiskLabel}";
     fsType = "ext4";
     neededForBoot = true;
   };

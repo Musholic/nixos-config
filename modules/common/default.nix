@@ -5,6 +5,9 @@
 }: {
   imports = [
     inputs.impermanence.nixosModules.impermanence
+    ./disk_config.nix
+    ./rollover_boot.nix
+    ./backup_boot.nix
   ];
 
   # Allow unfree license
