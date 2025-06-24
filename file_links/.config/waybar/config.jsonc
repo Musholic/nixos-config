@@ -150,6 +150,7 @@
       "default": ["", "", ""],
     },
     "on-click": "pavucontrol",
+    "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
   },
   "custom/power": {
     "format": "⏻ ",
