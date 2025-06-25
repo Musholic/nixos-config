@@ -49,10 +49,6 @@
     };
     zsh.enable = true;
     alacritty.enable = true;
-    vscode = {
-      enable = true;
-      package = pkgs.vscode.fhs;
-    };
     nh = {
       enable = true;
       clean.enable = true;
@@ -129,8 +125,7 @@
     pkgs-optinix
     ranger
 
-    dotnet-sdk
-    omnisharp-roslyn
+    pkgs-unstable.jetbrains.idea-community-bin
     wineWowPackages.stable
     pkgs.spice
     pkgs.quickemu
