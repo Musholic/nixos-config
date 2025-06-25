@@ -1,0 +1,12 @@
+#!/bin/sh
+readlink_rec () {
+    file=$1
+    if [ -L "$file" ]; then
+        target=$(readlink "$file")
+        echo "=> $target"
+        readlink_rec "$target"
+    fi
+}
+
+echo $1
+readlink_rec $1
