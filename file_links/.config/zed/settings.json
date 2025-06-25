@@ -11,6 +11,7 @@
   "features": {
     "edit_prediction_provider": "zed"
   },
+  "format_on_save": "off",
   "vim_mode": true,
   "agent": {
     "default_model": {
