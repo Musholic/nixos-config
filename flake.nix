@@ -32,10 +32,17 @@
     ...
   }: let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
+    pkgs = let
+      nixpkgs-patched = (import nixpkgs {inherit system;}).applyPatches {
+        name = "nixpkgs-distroav-patch";
+        src = nixpkgs;
+        patches = [./patches/update_distroav.patch];
+      };
+    in
+      import nixpkgs-patched {
+        inherit system;
+        config.allowUnfree = true;
+      };
     pkgs-unstable = import nixpkgs-unstable {
       inherit system;
       config.allowUnfree = true;

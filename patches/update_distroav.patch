@@ -1,46 +1,48 @@
 diff --git a/pkgs/applications/video/obs-studio/plugins/default.nix b/pkgs/applications/video/obs-studio/plugins/default.nix
-index 8325b513f..aa61e06dc 100644
+index 8019aa4a8..0c2e0bcae 100644
 --- a/pkgs/applications/video/obs-studio/plugins/default.nix
 +++ b/pkgs/applications/video/obs-studio/plugins/default.nix
 @@ -12,6 +12,8 @@
  {
    advanced-scene-switcher = qt6Packages.callPackage ./advanced-scene-switcher { };
- 
-+  distroav = qt6Packages.callPackage ./distroav { };
+
++  distroav = qt6Packages.callPackage ./distroav {};
 +
    droidcam-obs = callPackage ./droidcam-obs { };
- 
+
    input-overlay = qt6Packages.callPackage ./input-overlay.nix { };
-@@ -42,8 +44,6 @@
- 
+@@ -46,8 +48,6 @@
+
    obs-mute-filter = callPackage ./obs-mute-filter.nix { };
- 
+
 -  obs-ndi = qt6Packages.callPackage ./obs-ndi { };
 -
    obs-nvfbc = callPackage ./obs-nvfbc.nix { };
- 
+
    obs-pipewire-audio-capture = callPackage ./obs-pipewire-audio-capture.nix { };
 diff --git a/pkgs/applications/video/obs-studio/plugins/obs-ndi/default.nix b/pkgs/applications/video/obs-studio/plugins/distroav/default.nix
-similarity index 87%
+similarity index 79%
 rename from pkgs/applications/video/obs-studio/plugins/obs-ndi/default.nix
 rename to pkgs/applications/video/obs-studio/plugins/distroav/default.nix
-index e7b2784ff..06e2fbb25 100644
+index e7b2784ff..8f51816d8 100644
 --- a/pkgs/applications/video/obs-studio/plugins/obs-ndi/default.nix
 +++ b/pkgs/applications/video/obs-studio/plugins/distroav/default.nix
-@@ -10,8 +10,8 @@
+@@ -8,10 +8,9 @@
+   ndi,
+   curl,
  }:
- 
+-
  stdenv.mkDerivation rec {
 -  pname = "obs-ndi";
 -  version = "4.14.1";
 +  pname = "distroav";
-+  version = "6.0.0";
- 
++  version = "6.1.1";
+
    nativeBuildInputs = [
      cmake
-@@ -25,10 +25,10 @@ stdenv.mkDerivation rec {
+@@ -25,10 +24,10 @@ stdenv.mkDerivation rec {
    ];
- 
+
    src = fetchFromGitHub {
 -    owner = "Palakis";
 -    repo = "obs-ndi";
@@ -48,21 +50,39 @@ index e7b2784ff..06e2fbb25 100644
 +    repo = "DistroAV";
      rev = version;
 -    sha256 = "sha256-ex/fZmZpFM6GTKNBQClzSf6Ns0Yts5+0PAmf5mIQCwc=";
-+    sha256 = "sha256-pr/5XCLo5fzergIQrYFC9o9K+KuP4leDk5/oRe5ct9Q=";
++    sha256 = "sha256-nbXh6bjpiKbvuntZSnuTWWpmhfAcep7Krjjq8FvbENk=";
    };
- 
+
    patches = [
+@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
+     ln -s ${ndi}/include lib/ndi
+   '';
+
+-  cmakeFlags = [ "-DENABLE_QT=ON" ];
++  cmakeFlags = ["-DENABLE_QT=ON"];
+
+   env.NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
+
+@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
+     description = "Network A/V plugin for OBS Studio";
+     homepage = "https://github.com/Palakis/obs-ndi";
+     license = licenses.gpl2;
+-    maintainers = with maintainers; [ jshcmpbll ];
++    maintainers = with maintainers; [jshcmpbll];
+     platforms = platforms.linux;
+     hydraPlatforms = ndi.meta.hydraPlatforms;
+   };
 diff --git a/pkgs/applications/video/obs-studio/plugins/distroav/hardcode-ndi-path.patch b/pkgs/applications/video/obs-studio/plugins/distroav/hardcode-ndi-path.patch
 new file mode 100644
-index 000000000..0800a58e9
+index 000000000..963edf752
 --- /dev/null
 +++ b/pkgs/applications/video/obs-studio/plugins/distroav/hardcode-ndi-path.patch
 @@ -0,0 +1,20 @@
 +diff --git a/src/plugin-main.cpp b/src/plugin-main.cpp
-+index ffaaea8..df70ae6 100644
++index 43f0e28..0778b54 100644
 +--- a/src/plugin-main.cpp
 ++++ b/src/plugin-main.cpp
-+@@ -383,14 +383,7 @@ const NDIlib_v5 *load_ndilib()
++@@ -412,14 +412,7 @@ const NDIlib_v5 *load_ndilib()
 + 	if (!temp_path.isEmpty()) {
 + 		locations << temp_path;
 + 	}
@@ -100,10 +120,10 @@ index c8b400b68..000000000
 -	for (auto location : locations) {
 - 		path = QDir::cleanPath(
 - 			QDir(location).absoluteFilePath(NDILIB_LIBRARY_NAME));
-diff --git a/pkgs/development/libraries/ndi/version.json b/pkgs/development/libraries/ndi/version.json
-index 1631cd03e..6f91bd9b3 100644
---- a/pkgs/development/libraries/ndi/version.json
-+++ b/pkgs/development/libraries/ndi/version.json
+diff --git a/pkgs/by-name/nd/ndi/version.json b/pkgs/by-name/nd/ndi/version.json
+index 1631cd03e..15f6b0938 100644
+--- a/pkgs/by-name/nd/ndi/version.json
++++ b/pkgs/by-name/nd/ndi/version.json
 @@ -1 +1 @@
 -{"hash": "sha256:0wh5bqy9xx08wnfah92pgs4f6xn6mwfyhwdzbhf5ghkbw8pc7z0w", "version": "5.6.1"}
-+{"hash": "sha256:6iqjexwILth2muLpXWQjDVTvOuMq4jM8KBYnpPmViU8=", "version": "6.1.1"}
++{"hash": "sha256-10pxvHLYbQ1p3NKSTC1I3YAFkPbYSCenXTEWukqy5TY=", "version": "6.2.0"}
