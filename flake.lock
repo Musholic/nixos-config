@@ -118,11 +118,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749154018,
-        "narHash": "sha256-gjN3j7joRvT3a8Zgcylnd4NFsnXeDBumqiu4HmY1RIg=",
+        "lastModified": 1750792728,
+        "narHash": "sha256-Lh3dopA8DdY+ZoaAJPrtkZOZaFEJGSYjOdAYYgOPgE4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7aae0ee71a17b19708b93b3ed448a1a0952bf111",
+        "rev": "366f00797b1efb70f2882d3da485e3c10fd3d557",
         "type": "github"
       },
       "original": {
@@ -149,11 +149,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1749494155,
-        "narHash": "sha256-FG4DEYBpROupu758beabUk9lhrblSf5hnv84v1TLqMc=",
+        "lastModified": 1750622754,
+        "narHash": "sha256-kMhs+YzV4vPGfuTpD3mwzibWUE6jotw5Al2wczI0Pv8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "88331c17ba434359491e8d5889cce872464052c2",
+        "rev": "c7ab75210cb8cb16ddd8f290755d9558edde7ee1",
         "type": "github"
       },
       "original": {
@@ -181,11 +181,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1749285348,
-        "narHash": "sha256-frdhQvPbmDYaScPFiCnfdh3B/Vh81Uuoo0w5TkWmmjU=",
+        "lastModified": 1750741721,
+        "narHash": "sha256-Z0djmTa1YmnGMfE9jEe05oO4zggjDmxOGKwt844bUhE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3e3afe5174c561dee0df6f2c2b2236990146329f",
+        "rev": "4b1164c3215f018c4442463a27689d973cffd750",
         "type": "github"
       },
       "original": {
@@ -274,6 +274,7 @@
       "original": {
         "owner": "hmajid2301",
         "repo": "optinix",
+        "rev": "d274db25e577762fc0d9b5c131022b5907e26d6c",
         "type": "gitlab"
       }
     },
@@ -371,16 +372,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1749634733,
-        "narHash": "sha256-mRH4o08PO5NnFWWIb/joEr+t/B9jX2K7Kbc+RD7HYv0=",
+        "lastModified": 1750851139,
+        "narHash": "sha256-OgHXU9hOHafjQPs1e/pfbvGhaKAFQhjojjLrkmFGJpA=",
         "owner": "zed-industries",
         "repo": "zed",
-        "rev": "abcec9f33ecfcdf7e71f156139bf73a5a647ef7d",
+        "rev": "948dbba28ef6a72560441aa568e2c9498f747941",
         "type": "github"
       },
       "original": {
         "owner": "zed-industries",
-        "ref": "v0.190.x",
+        "ref": "v0.192.x",
         "repo": "zed",
         "type": "github"
       }

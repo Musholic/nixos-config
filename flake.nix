@@ -11,12 +11,13 @@
       url = "github:VundleVim/Vundle.vim";
       flake = false;
     };
-    zed-preview.url = "github:zed-industries/zed/v0.190.x";
+    zed-preview.url = "github:zed-industries/zed/v0.192.x";
     zgen = {
       url = "github:tarjoilija/zgen";
       flake = false;
     };
-    optinix.url = "gitlab:hmajid2301/optinix";
+    # While build is failing and until next release: https://gitlab.com/hmajid2301/optinix/-/commits/main?ref_type=HEADS
+    optinix.url = "gitlab:hmajid2301/optinix/d274db25e577762fc0d9b5c131022b5907e26d6c";
     nushell-plugin-git-aliases = {
       url = "github:KamilKleina/git-aliases.nu";
       flake = false;
