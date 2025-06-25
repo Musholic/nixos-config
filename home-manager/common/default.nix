@@ -71,7 +71,6 @@
       lockCmd = "hyprlock";
       xautolock.enable = false;
     };
-    ssh-agent.enable = true;
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
     gnome-keyring = {
