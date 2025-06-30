@@ -127,13 +127,12 @@
 
     pkgs-unstable.jetbrains.idea-community-bin
     wineWowPackages.stable
-    pkgs.spice
-    pkgs.quickemu
     unzip
+    ripgrep
 
     pulseaudio # For pactl utilities
 
-    devenv
+    pkgs-unstable.devenv
     rclone
   ];
 }
