@@ -7,7 +7,7 @@
   "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
   "modules-left": ["hyprland/workspaces", "hyprland/submap"],
-  "modules-center": ["hyprland/window"],
+  "modules-center": ["hyprland/window", "hyprland/windowcount"],
   "modules-right": [
     "systemd-failed-units",
     "pulseaudio",
