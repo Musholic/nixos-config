@@ -1,4 +1,12 @@
 let carapace_completer = {|spans|
+    # if the current command is an alias, get it's expansion
+    let expanded_alias = (scope aliases | where name == $spans.0 | get -i 0 | get -i expansion)
+
+    # overwrite
+    let spans = (if $expanded_alias != null  {
+        # put the first word of the expanded alias first in the span
+        $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
+    } else { $spans })
     carapace $spans.0 nushell ...$spans | from json
 }
 $env.config = {
@@ -9,11 +17,11 @@ $env.config = {
       partial: true         # set to false to prevent partial filling of the prompt
       algorithm: "fuzzy"    # prefix or fuzzy
       external: {
-      # set to false to prevent nushell looking into $env.PATH to find more suggestions
-      enable: true
-      # set to lower can improve completion performance at the cost of omitting some options
-      max_results: 100
-      completer: $carapace_completer
+        # set to false to prevent nushell looking into $env.PATH to find more suggestions
+        enable: true
+        # set to lower can improve completion performance at the cost of omitting some options
+        max_results: 100
+        completer: $carapace_completer
       }
   }
 }
