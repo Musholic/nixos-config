@@ -339,3 +339,7 @@ window#waybar:not(.fullscreen) #windowcount {
 window#waybar.fullscreen {
     background-color: rgba(130, 48, 59, 0.5);
 }
+
+#custom-reboot_needed {
+    background-color: #eb4d4b;
+}

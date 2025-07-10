@@ -1,0 +1,9 @@
+#!/bin/sh
+booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
+built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
+
+if [ "''${booted}" != "''${built}" ]; then
+    echo "The system needs to reboot on up-to-date kernel"
+    exit 0
+fi
+exit 1

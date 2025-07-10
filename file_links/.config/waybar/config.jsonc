@@ -22,6 +22,7 @@
     "battery#bat2",
     "clock",
     "tray",
+    "custom/reboot_needed",
     "custom/power",
   ],
   "systemd-failed-units": {
@@ -149,6 +150,12 @@
     },
     "on-click": "pavucontrol",
     "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+  },
+  "custom/reboot_needed": {
+    "format": "   ",
+    "exec": "is_reboot_needed",
+    "interval": 60,
+    "tooltip-format": "{}",
   },
   "custom/power": {
     "format": "⏻ ",
