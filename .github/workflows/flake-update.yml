@@ -1,3 +1,4 @@
+name: "Flake update"
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
