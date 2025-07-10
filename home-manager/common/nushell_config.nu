@@ -7,7 +7,10 @@ let carapace_completer = {|spans|
         # put the first word of the expanded alias first in the span
         $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
     } else { $spans })
-    carapace $spans.0 nushell ...$spans | from json
+
+    carapace $spans.0 nushell ...$spans
+    | from json
+    | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
 }
 $env.config = {
   show_banner: false,
