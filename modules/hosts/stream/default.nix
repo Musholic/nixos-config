@@ -9,6 +9,8 @@
   ];
 
   disk.rootDiskLabel = "nixos_stream";
+  
+  systemd.services.pull-updates.serviceConfig.User = "musholic";
 
   boot = {
     kernelParams = ["i915.force_probe=7d55"];

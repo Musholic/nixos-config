@@ -18,6 +18,48 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  systemd.services.pull-updates = {
+    description = "Pulls changes to system config";
+    restartIfChanged = false;
+    onSuccess = [ "rebuild.service" ];
+    startAt = "00:00";
+    path = [pkgs.git pkgs.openssh];
+    script = ''
+      git pull --ff-only
+    '';
+    environment = {
+      SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
+    };
+    serviceConfig = {
+      WorkingDirectory = "/nix/conf";
+      Type = "oneshot";
+    };
+  };
+  
+  systemd.services.rebuild = {
+    description = "Rebuilds and activates system config";
+    restartIfChanged = false;
+    path = [pkgs.nixos-rebuild pkgs.systemd pkgs.git];
+    script = ''
+      for dir in "/nix/conf";  do 
+        if ! git config --global --get-all safe.directory | grep -qFx "$dir"; then
+          git config --global --add safe.directory "$dir"
+        fi
+      done
+      nixos-rebuild --flake /nix/conf switch
+      booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
+      built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
+  
+      if [ "''${booted}" != "''${built}" ]; then
+        echo "The system needs to reboot on up-to-date kernel"
+      fi
+    '';
+    serviceConfig = {
+      User = "root";
+      Type = "oneshot";
+    };
+  };
+  
   networking = {
     firewall.enable = false;
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
