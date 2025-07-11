@@ -128,7 +128,12 @@ $env.config.keybindings = (
 )
 
 def nopts-sk [] {
-  open ~/.local/share/optinix/options.db | get options | sk --format {get option_name} --preview {}
+  let db_location = $"($env.HOME)/.local/share/optinix/options.db"
+  let options = open $db_location | get options | sk --format {get option_name} --preview {}
+  let option_id = ($options | get id)
+  let source_id = (open $db_location | get source_options | where option_id == $option_id | first | get source_id)
+  let source_url = (open $db_location | get sources | where id == $source_id | first | get url)
+  ($options | insert url $source_url)
 }
 
 def _npkgs_sk_internal [
