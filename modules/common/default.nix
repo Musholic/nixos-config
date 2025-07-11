@@ -25,7 +25,14 @@
     startAt = "00:00";
     path = [pkgs.git pkgs.openssh];
     script = ''
-      git pull --ff-only
+      git fetch
+      nb_commits_to_pull=$(git rev-list --count origin/master..HEAD)
+      
+      if [ "$nb_commits_to_pull" -gt 0 ]; then
+        git pull --ff-only
+        exit 0
+      fi
+      exit 1
     '';
     environment = {
       SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
