@@ -17,8 +17,12 @@ jobs:
       matrix:
         config: ["nixos-musholic-stream"]
     env:
-      DRY_RUN: "${{ github.event.inputs.dry_run || 'true' }}"
+      DRY_RUN: "${{ github.event.inputs.dry_run || 'false' }}"
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
       - uses: actions/checkout@v4
         with:
           submodules: true
