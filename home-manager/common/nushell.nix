@@ -46,7 +46,7 @@
       # NixOS specific aliases
       nfupdate = "nix flake update --commit-lock-file --flake /nix/conf";
       nhupdate = "nh home switch /nix/conf?submodules=1";
-      nupdate = "nh os switch /nix/conf?submodules=1";
+      nupdate = "nh os switch /nix/conf?submodules=1 -- --accept-flake-config";
       nopts-update = "optinix update";
     };
 
