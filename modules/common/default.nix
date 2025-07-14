@@ -18,6 +18,8 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  systemd.timers.pull-updates.timerConfig.Persistent = true;
+  
   systemd.services.pull-updates = {
     description = "Pulls changes to system config";
     restartIfChanged = false;
