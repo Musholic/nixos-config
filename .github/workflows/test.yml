@@ -21,14 +21,15 @@ jobs:
     steps:
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
       - uses: actions/checkout@v4
         with:
           submodules: true
       - uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: cachix/cachix-action@v14
+        with:
+          name: musholic
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - uses: DeterminateSystems/flake-checker-action@main
       - run: nix build .#nixosConfigurations.${{matrix.config}}.config.system.build.toplevel $([[ $DRY_RUN == "true" ]] && echo "--dry-run")
