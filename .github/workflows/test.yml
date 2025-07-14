@@ -32,4 +32,5 @@ jobs:
           name: musholic
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - uses: DeterminateSystems/flake-checker-action@main
-      - run: nix build .#nixosConfigurations.${{matrix.config}}.config.system.build.toplevel $([[ $DRY_RUN == "true" ]] && echo "--dry-run")
+      - name: Nix Build
+        run: nix build --accept-flake-config .#nixosConfigurations.${{matrix.config}}.config.system.build.toplevel $([[ $DRY_RUN == "true" ]] && echo "--dry-run")
