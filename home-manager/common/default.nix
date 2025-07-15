@@ -134,5 +134,8 @@
 
     pkgs-unstable.devenv
     rclone
+
+    # TMP test
+    neovim
   ];
 }
