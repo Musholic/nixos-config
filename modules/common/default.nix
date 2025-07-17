@@ -23,6 +23,7 @@
   systemd.services.pull-updates = {
     description = "Pulls changes to system config";
     restartIfChanged = false;
+    after = [ "network-online.target" ];
     onSuccess = [ "rebuild.service" ];
     startAt = "00:00";
     path = [pkgs.git pkgs.openssh];
@@ -31,7 +32,7 @@
       nb_commits_to_pull=$(git rev-list --count origin/master..HEAD)
       
       if [ "$nb_commits_to_pull" -gt 0 ]; then
-        git pull --ff-only
+        git pull --rebase
         exit 0
       fi
       exit 1
