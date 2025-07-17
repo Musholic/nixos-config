@@ -55,12 +55,31 @@ jobs:
           current_eval=$(cat eval_current.txt)
           parent_eval=$(cat eval_parent.txt)
           nvd diff "$parent_eval" "$current_eval" | tee nvd_diff.txt
-      - name: Upload diff
+
+      - name: Create diff report
+        run: |
+          cat > nvd_diff_report.md << EOF
+          ## Nvd Diff Report
+
+          <details>
+          <summary>Package Changes</summary>
+
+          \`\`\`
+          $(cat nvd_diff.txt)
+          \`\`\`
+
+          </details>
+          EOF
+
+      - name: Add diff report to step summary
+        run: |
+          cat nvd_diff_report.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload diff report
         uses: actions/upload-artifact@v4
         with:
           name: nvd-diff-${{ matrix.config }}
-          path: nvd_diff.txt
-          retention-days: 1
+          path: nvd_diff_report.md
 
   validate-and-comment:
     if: github.event_name == 'pull_request'
@@ -74,11 +93,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: nvd-diff-${{ needs.build-and-diff.outputs.config }}
-          
+
       - name: Fail if no actual changes
         if: github.head_ref == 'update_flake_lock_action'
         run: |
-          if grep -q "No version or selection state changes" nvd_diff.txt; then
+          if grep -q "No version or selection state changes" nvd_diff_report.md; then
             echo "::error::No package changes between commits"
             exit 1
           else
@@ -99,21 +118,6 @@ jobs:
           comment-author: "github-actions[bot]"
           body-includes: "## Nvd Diff Report"
 
-      - name: Create comment body
-        run: |
-          cat > comment_body.md << EOF
-          ## Nvd Diff Report
-
-          <details>
-          <summary>Package Changes</summary>
-
-          \`\`\`
-          $(cat nvd_diff.txt)
-          \`\`\`
-
-          </details>
-          EOF
-
       - name: Post Nvd Diff
         uses: peter-evans/create-or-update-comment@v4
         env:
@@ -121,5 +125,5 @@ jobs:
         with:
           comment-id: ${{ steps.find_comment.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
-          body-path: comment_body.md
+          body-path: nvd_diff_report.md
           edit-mode: replace
