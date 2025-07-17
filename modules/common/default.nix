@@ -184,6 +184,12 @@
     seahorse.enable = true;
     fuse.userAllowOther = true;
     steam.enable = true;
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+    };
   };
 
   virtualisation.docker = {
