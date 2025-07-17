@@ -59,6 +59,7 @@ jobs:
           retention-days: 1
 
   validate-and-comment:
+    if: github.event_name == 'pull_request'
     permissions:
       issues: write
       pull-requests: write
@@ -81,14 +82,12 @@ jobs:
           fi
 
       - uses: actions/create-github-app-token@v2
-        if: github.event_name == 'pull_request'
         id: app-token
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Find existing Nvd diff comment
-        if: github.event_name == 'pull_request'
         uses: peter-evans/find-comment@v3
         id: find_comment
         with:
@@ -97,7 +96,6 @@ jobs:
           body-includes: "## Nvd Diff Report"
 
       - name: Create comment body
-        if: github.event_name == 'pull_request'
         run: |
           cat > comment_body.md << EOF
           ## Nvd Diff Report
@@ -113,7 +111,6 @@ jobs:
           EOF
 
       - name: Post Nvd Diff
-        if: github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
