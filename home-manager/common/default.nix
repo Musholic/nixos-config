@@ -125,7 +125,7 @@
     pkgs-optinix
     ranger
 
-    pkgs-unstable.jetbrains.idea-community-bin
+    jetbrains.idea-community-bin
     wineWowPackages.stable
     unzip
     ripgrep
