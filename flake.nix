@@ -72,17 +72,19 @@
       ];
     };
   };
-  
+
   nixConfig = {
     extra-substituters = [
       "https://zed.cachix.org"
       "https://nix-community.cachix.org"
       "https://cache.garnix.io"
+      "https://musholic.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "zed.cachix.org-1:/pHQ6dpMsAZk2DiP4WCL0p9YDNKWj2Q5FL20bNmw1cU="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "musholic.cachix.org-1:9jEpeBICbnSv6JVQ5PKs1of1A3Wx5QJolfXZke45Uyw="
     ];
   };
 }
