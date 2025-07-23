@@ -343,3 +343,13 @@ window#waybar.fullscreen {
 #custom-reboot_needed {
     background-color: #eb4d4b;
 }
+
+#custom-camera {
+    min-width: 300px;
+    border-left: 3px solid skyblue;
+}
+
+#custom-todo {
+    margin: 10px;
+    font-size: 20px;
+}

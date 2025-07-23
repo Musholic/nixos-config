@@ -1,0 +1,6 @@
+#!/bin/sh
+text="TODO for today\n\n\
+1. Display a TODO list and a placeholder for the camera\n\
+2. Use the same attributes colors as the game\n\
+3. Publish the release 0.7.0"
+echo "{\"text\": \"$text\"}"
