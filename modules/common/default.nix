@@ -23,6 +23,7 @@
   systemd.services.pull-updates = {
     description = "Pulls changes to system config";
     restartIfChanged = false;
+    wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
     onSuccess = [ "rebuild.service" ];
     startAt = "00:00";
