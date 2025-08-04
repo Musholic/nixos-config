@@ -14,7 +14,6 @@
 
   boot = {
     kernelParams = ["i915.force_probe=7d55"];
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_14;
     loader = {
       efi = {
         canTouchEfiVariables = true;
