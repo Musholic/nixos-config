@@ -135,4 +135,11 @@
     pkgs-unstable.devenv
     rclone
   ];
+  
+  home.pointerCursor = {
+    name = "Catppuccin Mocha Sapphire";
+    gtk.enable = true;
+    size = 24;
+    package = pkgs.catppuccin-cursors.mochaSapphire;
+  };
 }
