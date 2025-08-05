@@ -30,7 +30,7 @@
     path = [pkgs.git pkgs.openssh];
     script = ''
       git fetch
-      nb_commits_to_pull=$(git rev-list --count origin/master..HEAD)
+      nb_commits_to_pull=$(git rev-list --count HEAD..origin/master)
       
       if [ "$nb_commits_to_pull" -gt 0 ]; then
         git pull --rebase
@@ -57,7 +57,7 @@
           git config --global --add safe.directory "$dir"
         fi
       done
-      nixos-rebuild --flake /nix/conf switch
+      nixos-rebuild --flake /nix/conf switch --accept-flake-config
       booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
       built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
   
