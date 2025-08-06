@@ -1,4 +1,5 @@
 #!/bin/sh
-text="TODO for today\n\n\
-"
-echo "{\"text\": \"$text\"}"
+# Replace newlines by \n for JSON formatting
+text=$(cat /nix/persist/home/stream_todo.txt)
+
+echo "{\"text\": \"${text//$'\n'/\\n}\"}"
