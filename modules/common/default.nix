@@ -71,6 +71,13 @@
     };
   };
   
+  # Fix network manager wait online service not waiting for connection
+  systemd.services.NetworkManager-wait-online = {
+    serviceConfig = {
+      ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q" ];
+    };
+  };
+  
   networking = {
     firewall.enable = false;
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
