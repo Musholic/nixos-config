@@ -19,11 +19,11 @@ jobs:
         run: |
           echo 'set man-db/auto-update false' | sudo debconf-communicate >/dev/null
           sudo dpkg-reconfigure man-db
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: free up disk space
+        run: .github/scripts/free-disk-space-linux.sh
       - uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixos-unstable
