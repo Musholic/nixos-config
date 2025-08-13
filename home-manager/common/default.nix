@@ -134,6 +134,8 @@
 
     pkgs-unstable.devenv
     rclone
+    
+    inkscape
   ];
   
   home.pointerCursor = {
