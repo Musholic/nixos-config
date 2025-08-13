@@ -1,12 +1,13 @@
 // -*- mode: jsonc -*-
 {
-  // "layer": "top", // Waybar at top layer
+  "layer": "bottom", // Waybar at top layer
   "position": "bottom", // Waybar position (top|bottom|left|right)
+  "passthrough": true, // Avoid getting focus
   "height": 250, // Waybar height (to be removed for auto height)
   // "width": 1280, // Waybar width
   "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
-  "modules-left": ["custom/todo"],
+  "modules-left": ["image#todo"],
   "modules-center": [],
   "modules-right": ["custom/camera"],
   "custom/todo": {
@@ -14,6 +15,11 @@
     "interval": 5,
     "return-type": "json",
     "exec": "get_stream_todo",
+  },
+  "image#todo": {
+    "path": "/nix/persist/home/stream_todo.svg",
+    "size": 1250,
+    "interval": 5,
   },
   "custom/camera": {
     "format": "CAMERA",
