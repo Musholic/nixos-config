@@ -136,6 +136,7 @@
     rclone
     
     inkscape
+    discord
   ];
   
   home.pointerCursor = {
