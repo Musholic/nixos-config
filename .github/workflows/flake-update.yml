@@ -22,6 +22,7 @@ jobs:
       - uses: cachix/install-nix-action@v30
       
       - name: Replace zed version by last preview release tag
+        continue-on-error: true
         run: |
           url=https://api.github.com/repos/zed-industries/zed/releases
           last_preview=$(curl -s $url | jq -r 'map(select(.prerelease == true)).[0].tag_name')
