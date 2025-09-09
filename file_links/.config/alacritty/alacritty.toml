@@ -1,6 +1,7 @@
 [keyboard]
 bindings = [
     { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+    { key = "Z", mods = "Control|Shift", command = { program = "zed", args = ["-n", "."] } },
     { key = "NumpadEnter", chars = "\r" },
 ]
 
