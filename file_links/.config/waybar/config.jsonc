@@ -70,9 +70,9 @@
     "interval": 1,
   },
   "disk": {
-    "interval": 30,
+    "interval": 5,
     "format": "{free} ",
-    "path": "/disk",
+    "path": "/",
   },
   "cpu": {
     "format": "{usage}% ",
