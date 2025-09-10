@@ -16,37 +16,43 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
-  boot.initrd.postDeviceCommands = ''
-    mkdir -p /mnt-root/disk0
-    mount -t ext4 /dev/disk/by-label/${config.disk.rootDiskLabel} /mnt-root/disk0
-    mkdir -p /mnt-root/disk0/nixos_roots/current
-    echo "Creating required persist directory"
-    mkdir -p /mnt-root/disk0/nix/persist/system/var/lib/nixos
-  '';
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+      fsType = "btrfs";
+      options = [ "subvol=root" "compress=zstd" "noatime" ];
+    };
 
-  fileSystems."/" = {
-    device = "/disk0/nixos_roots/current";
-    fsType = "none";
-    options = ["bind"];
-  };
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+      fsType = "btrfs";
+      options = [ "subvol=nix" "compress=zstd" "noatime" ];
+    };
 
-  fileSystems."/disk" = {
-    device = "/dev/disk/by-label/${config.disk.rootDiskLabel}";
-    fsType = "ext4";
-    neededForBoot = true;
-  };
+  fileSystems."/nix/persist" =
+    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+      fsType = "btrfs";
+      options = [ "subvol=persistent" "compress=zstd" "noatime" ];
+      neededForBoot = true;
+    };
 
-  fileSystems."/nix" = {
-    device = "/disk/nix";
-    fsType = "none";
-    options = ["bind"];
-  };
+  fileSystems."/nix/conf" =
+    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+      fsType = "btrfs";
+      options = [ "subvol=config" "compress=zstd" "noatime" ];
+      neededForBoot = true;
+    };
+    
+  fileSystems."/nix/boot" =
+    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+      fsType = "btrfs";
+      options = [ "subvol=boot" "compress=zstd" "noatime" ];
+    };
 
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/CE99-F9B3";
-    fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
-  };
+  fileSystems."/boot/efi" =
+    { device = "/dev/disk/by-uuid/CE99-F9B3";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
 
   swapDevices = [
     {device = "/dev/disk/by-uuid/db23da33-e5f9-4957-acad-84a44ff99841";}
