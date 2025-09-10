@@ -1,0 +1,6 @@
+#!/bin/sh
+url=https://api.github.com/repos/zed-industries/zed/releases
+last_preview=$(curl -s $url | jq -r 'map(select(.prerelease == true)).[0].tag_name')
+echo "Last preview release tag: $last_preview"
+export CACHIX_AUTH_TOKEN=""
+nix build github:zed-industries/zed/$last_preview --print-out-paths --no-link | cachix push musholic
