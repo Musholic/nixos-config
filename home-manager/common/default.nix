@@ -59,6 +59,10 @@
       enable = true;
       enableNushellIntegration = true;
     };
+    mise = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
   };
 
   services = {
