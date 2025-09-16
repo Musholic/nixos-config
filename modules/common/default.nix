@@ -29,6 +29,12 @@
     startAt = "00:00";
     path = [pkgs.git pkgs.openssh];
     script = ''
+      echo "Waiting for network connectivity to github.com..."
+      timeout 60 bash -c 'until curl -s --head https://github.com >/dev/null 2>&1; do sleep 1; done'
+      if [ $? -ne 0 ]; then
+        echo "Failed to reach github.com within 60 seconds"
+        exit 1
+      fi
       git fetch
       nb_commits_to_pull=$(git rev-list --count HEAD..origin/master)
       
