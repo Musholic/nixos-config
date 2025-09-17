@@ -27,7 +27,7 @@
     after = [ "network-online.target" ];
     onSuccess = [ "rebuild.service" ];
     startAt = "00:00";
-    path = [pkgs.git pkgs.openssh];
+    path = [pkgs.git pkgs.openssh pkgs.bash pkgs.curl];
     script = ''
       echo "Waiting for network connectivity to github.com..."
       timeout 60 bash -c 'until curl -s --head https://github.com >/dev/null 2>&1; do sleep 1; done'
