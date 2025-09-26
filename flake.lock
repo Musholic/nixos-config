@@ -181,11 +181,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1758427187,
-        "narHash": "sha256-pHpxZ/IyCwoTQPtFIAG2QaxuSm8jWzrzBGjwQZIttJc=",
+        "lastModified": 1758690382,
+        "narHash": "sha256-NY3kSorgqE5LMm1LqNwGne3ZLMF2/ILgLpFr1fS4X3o=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "554be6495561ff07b6c724047bdd7e0716aa7b46",
+        "rev": "e643668fd71b949c53f8626614b21ff71a07379d",
         "type": "github"
       },
       "original": {
@@ -372,16 +372,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1758658490,
-        "narHash": "sha256-sZDoeUGbshZhIp61pE/fXbJE/4K6zvQIuew4XE//Dqk=",
+        "lastModified": 1758815388,
+        "narHash": "sha256-AbGFYH6WIERaVSTUCKdvvmdzmxOdUBhZXVnbLyjNenc=",
         "owner": "zed-industries",
         "repo": "zed",
-        "rev": "c68602612f042b22ac2302b9d36bc985e03961ba",
+        "rev": "5e4d3970d1333b4b46cf747232603131de70a42b",
         "type": "github"
       },
       "original": {
         "owner": "zed-industries",
-        "ref": "v0.206.0-pre",
+        "ref": "v0.206.2-pre",
         "repo": "zed",
         "type": "github"
       }
