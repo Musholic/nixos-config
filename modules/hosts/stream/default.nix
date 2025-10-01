@@ -118,6 +118,16 @@
       services.openvpn.servers = {
         streamVPN = {config = ''config /root/nixos/openvpn/openvpn.ovpn '';};
       };
+      
+      systemd.user.services.waybar_bottom = {
+        enable = true;
+        wantedBy = [ "default.target" ];
+        description = "Waybar bottom bar";
+        serviceConfig = {
+            Type = "simple";
+            ExecStart = "${pkgs.waybar}/bin/waybar -c .config/waybar/config_bottom.jsonc";
+        };
+      };
     };
   };
 }
