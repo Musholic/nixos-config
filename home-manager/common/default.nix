@@ -62,6 +62,12 @@
     mise = {
       enable = true;
       enableNushellIntegration = true;
+      globalConfig = {
+        settings = {
+          # On Nix
+          all_compile = false;
+        };
+      };
     };
   };
 
@@ -141,6 +147,8 @@
     
     inkscape
     discord
+    
+    cachix
   ];
   
   home.pointerCursor = {
