@@ -11,7 +11,7 @@
       url = "github:VundleVim/Vundle.vim";
       flake = false;
     };
-    zed-preview.url = "github:zed-industries/zed/v0.206.6-pre";
+    zed-preview.url = "github:zed-industries/zed/v0.207.0-pre";
     zgen = {
       url = "github:tarjoilija/zgen";
       flake = false;
