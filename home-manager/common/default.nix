@@ -70,6 +70,7 @@
         settings = {
           # On Nix
           all_compile = false;
+          idiomatic_version_file_enable_tools = [];
         };
       };
     };
@@ -111,7 +112,6 @@
     ".vim/bundle/Vundle.vim".source = inputs.vundle;
     "sys/zgen".source = inputs.zgen;
   };
-
   # Packages to install
   home.packages = with pkgs; [
     tree
@@ -148,13 +148,14 @@
 
     pkgs-unstable.devenv
     rclone
-    
+
     inkscape
     discord
-    
+
     cachix
+    tmux
   ];
-  
+
   home.pointerCursor = {
     name = "Catppuccin Mocha Sapphire";
     gtk.enable = true;
