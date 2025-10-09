@@ -42,6 +42,10 @@
       enable = true;
       package = pkgs.rofi-wayland;
       theme = "Adapta-Nokto";
+      modes = ["window" "run" "drun" "combi"];
+      extraConfig = {
+        combi-modi = "window,run,drun";
+      };
     };
     waybar = {
       enable = true;
