@@ -19,13 +19,13 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   systemd.timers.pull-updates.timerConfig.Persistent = true;
-  
+
   systemd.services.pull-updates = {
     description = "Pulls changes to system config";
     restartIfChanged = false;
-    wants = [ "network-online.target" ];
-    after = [ "network-online.target" ];
-    onSuccess = [ "rebuild.service" ];
+    wants = ["network-online.target"];
+    after = ["network-online.target"];
+    onSuccess = ["rebuild.service"];
     startAt = "00:00";
     path = [pkgs.git pkgs.openssh pkgs.bash pkgs.curl];
     script = ''
@@ -37,7 +37,7 @@
       fi
       git fetch
       nb_commits_to_pull=$(git rev-list --count HEAD..origin/master)
-      
+
       if [ "$nb_commits_to_pull" -gt 0 ]; then
         git pull --rebase
         exit 0
@@ -52,13 +52,13 @@
       Type = "oneshot";
     };
   };
-  
+
   systemd.services.rebuild = {
     description = "Rebuilds and activates system config";
     restartIfChanged = false;
     path = [pkgs.nixos-rebuild pkgs.systemd pkgs.git];
     script = ''
-      for dir in "/nix/conf";  do 
+      for dir in "/nix/conf";  do
         if ! git config --global --get-all safe.directory | grep -qFx "$dir"; then
           git config --global --add safe.directory "$dir"
         fi
@@ -66,7 +66,7 @@
       nixos-rebuild --flake /nix/conf switch --accept-flake-config
       booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
       built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
-  
+
       if [ "''${booted}" != "''${built}" ]; then
         echo "The system needs to reboot on up-to-date kernel"
       fi
@@ -76,14 +76,14 @@
       Type = "oneshot";
     };
   };
-  
+
   # Fix network manager wait online service not waiting for connection
   systemd.services.NetworkManager-wait-online = {
     serviceConfig = {
-      ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q" ];
+      ExecStart = ["" "${pkgs.networkmanager}/bin/nm-online -q"];
     };
   };
-  
+
   networking = {
     firewall.enable = false;
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
@@ -295,6 +295,7 @@
     feh
     manix
     moreutils
+    unison # To allow synchronizing files between computers
   ];
 
   programs.nix-ld = {
