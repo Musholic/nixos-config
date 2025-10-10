@@ -148,14 +148,14 @@
     # Display services
     xserver = {
       enable = true;
-      displayManager.sddm = {
-        enable = true;
-        wayland.enable = true;
-      };
       xkb = {
         layout = "fr";
         options = "caps:escape";
       };
+    };
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
     };
 
     blueman.enable = true;
