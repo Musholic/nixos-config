@@ -6,7 +6,7 @@
 }: {
   imports = [
     inputs.impermanence.homeManagerModules.impermanence
-    ./common
+    ./common/desktop.nix
   ];
   #
   # Home Manager needs a bit of information about you and the
@@ -18,10 +18,10 @@
 
   home.persistence."/nix/persist/home" = {
     files = [
-      ".local/share/zed"
-      ".config/google-chrome"
-      ".config/obs-studio"
       ".zsh_history"
+    ];
+    directories = [
+      ".config/obs-studio"
       ".ssh"
     ];
   };

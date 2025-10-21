@@ -5,7 +5,7 @@
     ./ram_boot.nix
     ./home.nix
     ./vm-specialization.nix
-    ../../common
+    ../../common/desktop.nix
   ];
 
   disk.rootDiskLabel = "nixos_stream";
