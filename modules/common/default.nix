@@ -6,8 +6,8 @@
   imports = [
     inputs.impermanence.nixosModules.impermanence
     ./disk_config.nix
-    # ./rollover_boot.nix TODO: convert for btrfs
-    # ./backup_boot.nix TODO: convert for btrfs
+    ./rollover_boot.nix
+    ./backup_boot.nix
   ];
 
   # Allow unfree license

@@ -3,7 +3,7 @@ with lib; {
   options.disk = {
     rootDiskLabel = mkOption {
       type = types.str;
-      description = "Label of the root disk used for boot containing /nixos_roots and /nix";
+      description = "Label of the btrfs partition used for nixos containing /root, /config, /persistent, ...";
     };
   };
 }

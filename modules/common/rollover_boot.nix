@@ -2,20 +2,28 @@
   specialisation = {
     rollover.configuration = {
       boot.initrd.postDeviceCommands = lib.mkForce ''
-        mkdir -p /mnt-root/disk0
-        mount -t ext4 /dev/disk/by-label/${config.disk.rootDiskLabel} /mnt-root/disk0
-        # Create a timestamp for the old directory
-        DATETIME=$(date +"%Y%m%d_%H%M%S")
-        if [ -z "$DATETIME" ]; then
-          echo "Error: Failed to generate timestamp"
-          sleep 10s
-        else
-          # Move the current root to a timestamped directory
-          mv /mnt-root/disk0/nixos_roots/current /mnt-root/disk0/nixos_roots/$DATETIME
-
-          mkdir /mnt-root/disk0/nixos_roots/current
-          # The system will create and boot to a new "current" root
+        mkdir /btrfs_tmp
+        mount /dev/disk/by-label/${config.disk.rootDiskLabel} /btrfs_tmp
+        if [[ -e /btrfs_tmp/root ]]; then
+            mkdir -p /btrfs_tmp/old_roots
+            timestamp=$(date +"%Y%m%d_%H%M%S")
+            mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
         fi
+    
+        #delete_subvolume_recursively() {
+        #    IFS=$'\n'
+        #    for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+        #        delete_subvolume_recursively "/btrfs_tmp/$i"
+        #    done
+        #    btrfs subvolume delete "$1"
+        #}
+    
+        #for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
+        #    delete_subvolume_recursively "$i"
+        #done
+    
+        btrfs subvolume create /btrfs_tmp/root
+        umount /btrfs_tmp
       '';
     };
   };
