@@ -20,18 +20,7 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v30
-      
-      - name: Replace zed version by last preview release tag
-        continue-on-error: true
-        run: |
-          url=https://api.github.com/repos/zed-industries/zed/releases
-          last_preview=$(curl -s $url | jq -r 'map(select(.prerelease == true)).[0].tag_name')
-          echo "Last preview release tag: $last_preview"
-          sed -Ei "s|(\"github:zed-industries/zed/).*\"|\1$last_preview\"|" flake.nix
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git commit -am "Update zed version to $last_preview"
-          
+
       - uses: DeterminateSystems/update-flake-lock@main
         id: update
         with:
