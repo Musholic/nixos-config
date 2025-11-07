@@ -37,8 +37,7 @@ jobs:
         id: update
         with:
           token: ${{ steps.app-token.outputs.token }}
-          commit-message: "Update zed version to ${{ steps.update.outputs.last_preview }}"
-          title: "Update zed flake input"
+          title: "Update zed version"
           body: |
             Automated update of zed to the latest preview release.
           branch: update_zed_action
