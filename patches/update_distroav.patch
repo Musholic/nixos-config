@@ -126,4 +126,4 @@ index 1631cd03e..15f6b0938 100644
 +++ b/pkgs/by-name/nd/ndi/version.json
 @@ -1 +1 @@
 -{"hash": "sha256:0wh5bqy9xx08wnfah92pgs4f6xn6mwfyhwdzbhf5ghkbw8pc7z0w", "version": "5.6.1"}
-+{"hash": "sha256-10pxvHLYbQ1p3NKSTC1I3YAFkPbYSCenXTEWukqy5TY=", "version": "6.2.0"}
++{"hash": "sha256-C99mJkUn+L43+iLt3SuFFLmGilik2D+AoH2+tHnuFNQ=", "version": "6.2.1"}
