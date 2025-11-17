@@ -62,6 +62,14 @@
         ./modules/hosts/stream
       ];
     };
+    nixosConfigurations.nixos-cloud = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs pkgs pkgs-unstable pkgs-zed pkgs-optinix;
+      };
+      modules = [
+        ./modules/hosts/cloud
+      ];
+    };
     homeConfigurations.musholic = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {
