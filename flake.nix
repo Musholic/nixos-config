@@ -44,10 +44,17 @@
         inherit system;
         config.allowUnfree = true;
       };
-    pkgs-unstable = import nixpkgs-unstable {
-      inherit system;
-      config.allowUnfree = true;
-    };
+    pkgs-unstable = let
+      nixpkgs-unstable-patched = (import nixpkgs-unstable {inherit system;}).applyPatches {
+        name = "nixpkgs-unstable-patched";
+        src = nixpkgs-unstable;
+        patches = [./patches/nixpkgs-unstable/carapace.patch];
+      };
+    in
+      import nixpkgs-unstable-patched {
+        inherit system;
+        config.allowUnfree = true;
+      };
     pkgs-zed = zed-preview.packages.${system}.default;
 
     pkgs-optinix = optinix.packages.${system}.default.overrideAttrs (oldAttrs: {

@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   inputs,
   ...
 }: {
@@ -71,6 +72,7 @@
   programs.carapace = {
     enable = true;
     enableNushellIntegration = true;
+    package = pkgs-unstable.carapace;
   };
 
   programs.starship = {

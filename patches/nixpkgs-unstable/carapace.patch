@@ -1,0 +1,47 @@
+diff --git a/pkgs/by-name/ca/carapace/carapace.patch b/pkgs/by-name/ca/carapace/carapace.patch
+new file mode 100644
+index 000000000..e5af52215
+--- /dev/null
++++ b/pkgs/by-name/ca/carapace/carapace.patch
+@@ -0,0 +1,28 @@
++diff --git a/completers/common/git_completer/cmd/common/diff.go b/completers/common/git_completer/cmd/common/diff.go
++index 9c6725a7..7bb715b3 100644
++--- a/completers/common/git_completer/cmd/common/diff.go
+++++ b/completers/common/git_completer/cmd/common/diff.go
++@@ -99,15 +99,23 @@ func AddDiffFlags(cmd *cobra.Command) {
++ 	cmd.Flags().String("ws-error-highlight", "", "Highlight whitespace errors in the context, old or new lines of the diff")
++ 	cmd.Flags().BoolS("z", "z", false, "do not munge pathnames and use NULs as output field terminators")
++ 
+++	cmd.Flag("abbrev").NoOptDefVal = " "
++ 	cmd.Flag("color").NoOptDefVal = " "
++ 	cmd.Flag("color-moved").NoOptDefVal = "default"
++ 	cmd.Flag("color-moved-ws").NoOptDefVal = " "
+++	cmd.Flag("color-words").NoOptDefVal = " "
+++	cmd.Flag("dirstat").NoOptDefVal = " "
+++	cmd.Flag("dirstat-by-file").NoOptDefVal = " "
+++	cmd.Flag("stat").NoOptDefVal = " "
+++	cmd.Flag("submodule").NoOptDefVal = " "
++ 	cmd.Flag("word-diff").NoOptDefVal = "plain"
++ 
++ 	carapace.Gen(cmd).FlagCompletion(carapace.ActionMap{
++ 		"color":              git.ActionColorModes(),
++ 		"color-moved":        git.ActionColorMovedModes(),
++ 		"color-moved-ws":     git.ActionColorMovedWsModes(),
+++		"dirstat":            carapace.ActionValues("changes", "lines", "files", "cumulative"),
+++		"dirstat-by-file":    carapace.ActionValues("changes", "lines", "cumulative"),
++ 		"diff-algorithm":     git.ActionDiffAlgorithms(),
++ 		"ignore-submodules":  carapace.ActionValues("none", "untracked", "dirty", "all"),
++ 		"output":             carapace.ActionFiles(),
+diff --git a/pkgs/by-name/ca/carapace/package.nix b/pkgs/by-name/ca/carapace/package.nix
+index 3b1d1dafc..95143d2b7 100644
+--- a/pkgs/by-name/ca/carapace/package.nix
++++ b/pkgs/by-name/ca/carapace/package.nix
+@@ -10,6 +10,8 @@
+ buildGoModule (finalAttrs: {
+   pname = "carapace";
+   version = "1.5.4";
++  
++  patches = [ ./carapace.patch ];
+ 
+   src = fetchFromGitHub {
+     owner = "carapace-sh";
