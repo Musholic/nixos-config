@@ -39,7 +39,7 @@ index 3b1d1dafc..95143d2b7 100644
 @@ -10,6 +10,8 @@
  buildGoModule (finalAttrs: {
    pname = "carapace";
-   version = "1.5.4";
+   version = "1.5.5";
 +  
 +  patches = [ ./carapace.patch ];
  
