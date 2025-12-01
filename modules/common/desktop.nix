@@ -44,7 +44,10 @@
     };
 
     blueman.enable = true;
-    gnome.gnome-keyring.enable = true;
+    gnome = {
+      gnome-keyring.enable = true;
+      gcr-ssh-agent.enable = true;
+    };
 
     # Audio services
     pipewire = {
@@ -69,9 +72,6 @@
       withUWSM = true;
     };
     thunar = {
-      enable = true;
-    };
-    file-roller = {
       enable = true;
     };
     seahorse.enable = true;

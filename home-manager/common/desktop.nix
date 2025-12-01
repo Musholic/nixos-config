@@ -26,7 +26,6 @@
   programs = {
     rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
       theme = "Adapta-Nokto";
       modes = ["window" "run" "drun" "combi"];
       extraConfig = {
@@ -49,7 +48,6 @@
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
     gnome-keyring = {
-      components = ["secrets" "pkcs11" "ssh"];
       enable = true;
     };
     mako.enable = true;

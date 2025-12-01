@@ -45,7 +45,7 @@
       exit 1
     '';
     environment = {
-      SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
+      SSH_AUTH_SOCK = "/run/user/1000/gcr/ssh";
     };
     serviceConfig = {
       WorkingDirectory = "/nix/conf";
@@ -119,12 +119,6 @@
   users.mutableUsers = true; # Prevent accidental user/password deletion
 
   programs = {
-    zsh = {
-      enable = true;
-      enableCompletion = true;
-      enableGlobalCompInit = false;
-    };
-
     neovim = {
       enable = true;
       defaultEditor = true;
