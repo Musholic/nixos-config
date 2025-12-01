@@ -32,7 +32,6 @@
   # Let Home Manager install and manage itself.
   programs = {
     home-manager.enable = true;
-    zsh.enable = true;
     nh = {
       enable = true;
       clean.enable = true;

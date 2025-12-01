@@ -2,7 +2,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware.nix
-    ./ram_boot.nix
     ./home.nix
     ./vm-specialization.nix
     ../../common/desktop.nix
