@@ -44,9 +44,6 @@
       fi
       exit 1
     '';
-    environment = {
-      SSH_AUTH_SOCK = "/run/user/1000/gcr/ssh";
-    };
     serviceConfig = {
       WorkingDirectory = "/nix/conf";
       Type = "oneshot";

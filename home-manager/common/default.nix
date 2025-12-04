@@ -77,5 +77,6 @@
     rclone
     cachix
     tmux
+    zsh
   ];
 }
