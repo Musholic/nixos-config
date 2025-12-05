@@ -1,9 +1,7 @@
 {
-  inputs,
   pkgs,
-  pkgs-unstable,
-  pkgs-optinix,
   pkgs-zed,
+  config,
   ...
 }: {
   imports = [
@@ -71,31 +69,33 @@
   };
 
   # Packages to install
-  home.packages = with pkgs; [
-    rofi-power-menu
-    google-chrome
-    polybar
-    zathura
-    feh
-    sshuttle
-    pkgs-zed
-    kanshi
-    wtype
-    hyprlock
+  home.packages = with pkgs;
+    [
+      rofi-power-menu
+      google-chrome
+      polybar
+      zathura
+      feh
+      sshuttle
+      pkgs-zed
+      kanshi
+      wtype
+      hyprlock
 
-    clipse
-    wl-clipboard
-    grim
-    slurp
+      clipse
+      wl-clipboard
+      grim
+      slurp
 
-    jetbrains.idea-community-bin
-    wineWowPackages.stable
+      pulseaudio # For pactl utilities
 
-    pulseaudio # For pactl utilities
-
-    inkscape
-    discord
-  ];
+      inkscape
+      discord
+    ]
+    ++ (pkgs.lib.optionals (!config.boot.isRamBoot) [
+      pkgs.jetbrains.idea-community-bin
+      pkgs.wineWowPackages.stable
+    ]);
 
   home.pointerCursor = {
     name = "Catppuccin Mocha Sapphire";

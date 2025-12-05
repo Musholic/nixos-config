@@ -16,45 +16,47 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+  fileSystems = lib.mkIf (!config.boot.isRamBoot) {
+    "/" = {
+      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
       fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd" "noatime" ];
+      options = ["subvol=root" "compress=zstd" "noatime"];
     };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+    "/nix" = {
+      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
       fsType = "btrfs";
-      options = [ "subvol=nix" "compress=zstd" "noatime" ];
+      options = ["subvol=nix" "compress=zstd" "noatime"];
     };
 
-  fileSystems."/nix/persist" =
-    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+    "/nix/persist" = {
+      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
       fsType = "btrfs";
-      options = [ "subvol=persistent" "compress=zstd" "noatime" ];
+      options = ["subvol=persistent" "compress=zstd" "noatime"];
       neededForBoot = true;
     };
 
-  fileSystems."/nix/conf" =
-    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+    "/nix/conf" = {
+      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
       fsType = "btrfs";
-      options = [ "subvol=config" "compress=zstd" "noatime" ];
+      options = ["subvol=config" "compress=zstd" "noatime"];
       neededForBoot = true;
     };
-    
-  fileSystems."/nix/boot" =
-    { device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+
+    "/nix/boot" = {
+      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
       fsType = "btrfs";
-      options = [ "subvol=boot" "compress=zstd" "noatime" ];
+      options = ["subvol=boot" "compress=zstd" "noatime"];
     };
 
-  fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/CE99-F9B3";
+    "/boot/efi" = {
+      device = "/dev/disk/by-uuid/CE99-F9B3";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      options = ["fmask=0022" "dmask=0022"];
     };
+  };
 
-  swapDevices = [
+  swapDevices = lib.mkIf (!config.boot.isRamBoot) [
     {device = "/dev/disk/by-uuid/db23da33-e5f9-4957-acad-84a44ff99841";}
   ];
 

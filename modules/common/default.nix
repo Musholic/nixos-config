@@ -8,6 +8,7 @@
     ./disk_config.nix
     ./rollover_boot.nix
     ./backup_boot.nix
+    ./ram_boot.nix
   ];
 
   # Allow unfree license

@@ -7,6 +7,7 @@
 }: {
   imports = [
     ./nushell.nix
+    ../../modules/common/ram_boot_options.nix
   ];
   home.stateVersion = "24.11";
 
