@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ../common
+    ./ram_boot.nix
   ];
 
   console = {
