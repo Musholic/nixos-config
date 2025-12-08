@@ -6,6 +6,7 @@
   ...
 }: {
   imports = [
+    inputs.nix-index-database.homeModules.nix-index
     ./nushell.nix
     ../../modules/common/ram_boot_options.nix
   ];
@@ -42,6 +43,10 @@
     direnv = {
       enable = true;
       enableNushellIntegration = true;
+    };
+    nix-index = {
+      enable = true;
+      package = pkgs-unstable.nix-index;
     };
     mise = {
       enable = true;
