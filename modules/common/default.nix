@@ -82,7 +82,12 @@
   };
 
   networking = {
-    networkmanager.enable = true; # Easiest to use and most distros use this by default.
+    networkmanager = {
+      enable = true; # Easiest to use and most distros use this by default.
+      plugins = with pkgs; [
+        networkmanager-openvpn
+      ];
+    };
   };
 
   time.timeZone = "Europe/Paris";
