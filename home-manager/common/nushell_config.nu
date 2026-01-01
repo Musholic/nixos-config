@@ -180,3 +180,8 @@ $env.config.hooks.pre_execution = $env.config.hooks.pre_execution | append {
     print $"(ansi yellow_bold)Alias tip:(ansi reset) Use (ansi green_bold)($best_match.name)($remaining)(ansi reset)"
   }
 }
+
+# Redefine watch to a bash equivalent (only with -n option)
+def --wrapped watch [ --interval (-n) = 2: int, ...command: string] {
+    loop { clear -k; run-external ...$command; sleep ($interval * 1sec) }
+}
