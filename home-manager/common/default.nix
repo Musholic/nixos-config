@@ -28,6 +28,8 @@
       ".local/share/taskwarrior-tui"
       ".task"
       ".zgen"
+      ".unison"
+      "unison"
     ];
   };
 

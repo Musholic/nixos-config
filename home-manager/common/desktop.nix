@@ -17,6 +17,8 @@
     directories = [
       ".local/share/zed"
       ".config/google-chrome"
+      ".local/share/Steam"
+      ".local/share/keyrings"
     ];
   };
 
