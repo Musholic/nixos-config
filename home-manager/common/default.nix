@@ -61,6 +61,7 @@
         };
       };
     };
+    btop.enable = true;
   };
 
   home.file = {
