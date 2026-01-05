@@ -40,12 +40,15 @@
 
       if [ "$nb_commits_to_pull" -gt 0 ]; then
         git pull --rebase
-        exit 0
+        echo "Updates found. Rebuild is needed."
+        touch "$STATE_DIRECTORY/rebuild-needed"
+      else
+        echo "No updates found."
       fi
-      exit 1
     '';
     serviceConfig = {
       WorkingDirectory = "/nix/conf";
+      StateDirectory = "pull-updates";
       Type = "oneshot";
     };
   };
@@ -55,6 +58,9 @@
     restartIfChanged = false;
     path = [pkgs.nixos-rebuild pkgs.systemd pkgs.git];
     script = ''
+      # Remove flag from pull-updates service
+      rm -f /var/lib/pull-updates/rebuild-needed
+
       for dir in "/nix/conf";  do
         if ! git config --global --get-all safe.directory | grep -qFx "$dir"; then
           git config --global --add safe.directory "$dir"
@@ -68,6 +74,9 @@
         echo "The system needs to reboot on up-to-date kernel"
       fi
     '';
+    unitConfig = {
+      ConditionPathExists = "/var/lib/pull-updates/rebuild-needed";
+    };
     serviceConfig = {
       User = "root";
       Type = "oneshot";
