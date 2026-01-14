@@ -38,8 +38,11 @@
     home-manager.enable = true;
     nh = {
       enable = true;
-      clean.enable = true;
-      clean.extraArgs = "--keep-since 7d --keep 4";
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 7d --keep 4";
+        dates = "daily";
+      };
       flake = "/nix/conf?submodules=1";
     };
     direnv = {

@@ -104,11 +104,6 @@
 
   boot.loader.grub.configurationLimit = 10;
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 1w";
-  };
   nix.settings.auto-optimise-store = true;
 
   nix.settings = {
@@ -135,6 +130,15 @@
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
+    };
+    nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 7d --keep 4";
+        dates = "daily";
+      };
+      flake = "/nix/conf?submodules=1";
     };
   };
 
