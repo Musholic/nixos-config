@@ -9,16 +9,13 @@
   ];
 
   home.persistence."/nix/persist/home" = {
-    files = [
-      # Directory mount seems to cause issues for steam and flatpak for unkown reasons
-      ".local/share/flatpak"
-      ".var/app"
-    ];
     directories = [
       ".local/share/zed"
       ".config/google-chrome"
       ".local/share/Steam"
       ".local/share/keyrings"
+      ".var/app"
+      ".local/share/flatpak"
     ];
   };
 
