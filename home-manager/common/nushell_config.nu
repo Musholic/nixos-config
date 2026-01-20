@@ -107,7 +107,7 @@ def skim-history [] {
   # Format for display with skim and return selected command
   sk --format {
       $"(ansi green_bold)($in.command) (ansi yellow)\(($in.last_time | date humanize)\) (ansi blue)x($in.count)(ansi reset)"
-  } |
+  } -q (commandline) |
   $in.command? |
   default ""
 }
@@ -122,7 +122,7 @@ $env.config.keybindings = (
       mode: [emacs, vi_normal, vi_insert]
       event: {
           send: executehostcommand
-          cmd: "commandline edit --insert (skim-history)"
+          cmd: "commandline edit --replace (skim-history)"
       }
   }
 )
