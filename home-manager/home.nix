@@ -1,11 +1,9 @@
 {
   lib,
-  inputs,
   pkgs,
   ...
 }: {
   imports = [
-    inputs.impermanence.homeManagerModules.impermanence
     ./common/desktop.nix
   ];
   #
@@ -17,12 +15,8 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
   home.persistence."/nix/persist/home" = {
-    files = [
-      ".zsh_history"
-    ];
     directories = [
       ".config/obs-studio"
-      ".ssh"
     ];
   };
 

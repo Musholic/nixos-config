@@ -76,7 +76,6 @@
       enable = true;
     };
     seahorse.enable = true;
-    fuse.userAllowOther = true;
     steam.enable = true;
   };
 
