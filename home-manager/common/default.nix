@@ -16,18 +16,18 @@
     files = [
       ".zsh_history"
       ".config/rclone/rclone.conf"
-      ".config/nushell/history.txt"
       ".config/nushell/history.sqlite3"
+      ".config/nushell/history.sqlite3-wal"
     ];
     directories = [
       ".local/share/direnv"
       "git"
       ".ssh"
-      ".local/share/taskwarrior-tui"
       ".task"
       ".zgen"
       ".unison"
       "unison"
+      ".cache/nix"
     ];
   };
 
