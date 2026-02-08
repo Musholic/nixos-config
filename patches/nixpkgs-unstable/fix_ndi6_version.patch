@@ -1,0 +1,6 @@
+diff --git a/pkgs/by-name/nd/ndi-6/version.json b/pkgs/by-name/nd/ndi-6/version.json
+--- a/pkgs/by-name/nd/ndi-6/version.json
++++ b/pkgs/by-name/nd/ndi-6/version.json
+@@ -1 +1 @@
+-{"hash": "sha256:0bdf66264527f8be37fa22eddd2b8514b9868a58a4d83f80a07dbeb479ee14d4", "version": "6.2.1.0"}
++{"hash": "sha256-uuVEZJ+9prq452ldNO0XFhGxHmEMkZ2o//ZzpnBx/ag=", "version": "6.3.0"}

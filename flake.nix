@@ -35,15 +35,15 @@
     ...
   }: let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
     pkgs-unstable = let
       nixpkgs-unstable-patched = (import nixpkgs-unstable {inherit system;}).applyPatches {
         name = "nixpkgs-unstable-patched";
         src = nixpkgs-unstable;
-        patches = [./patches/nixpkgs-unstable/carapace.patch];
+        patches = let
+          patchesDir = ./patches/nixpkgs-unstable;
+          allPatches = builtins.readDir patchesDir;
+        in
+          builtins.map (name: "${patchesDir}/${name}") (builtins.attrNames allPatches);
       };
     in
       import nixpkgs-unstable-patched {
@@ -56,24 +56,17 @@
       patches = (oldAttrs.patches or []) ++ [./patches/optinix-remove-darwin.patch];
     });
   in {
+    nixpkgs.config.allowUnfree = true;
     nixosConfigurations.nixos-musholic-stream = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
       specialArgs = {
-        inherit inputs pkgs pkgs-unstable pkgs-zed pkgs-optinix;
+        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix;
       };
       modules = [
         ./modules/hosts/stream
       ];
     };
-    nixosConfigurations.nixos-cloud = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs pkgs pkgs-unstable pkgs-zed pkgs-optinix;
-      };
-      modules = [
-        ./modules/hosts/cloud
-      ];
-    };
     homeConfigurations.musholic = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
       extraSpecialArgs = {
         inherit inputs pkgs-unstable pkgs-zed pkgs-optinix;
       };
