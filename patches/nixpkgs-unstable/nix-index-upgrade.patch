@@ -12,7 +12,7 @@ index 97ce3cea6..467cb1f40 100644
    src = fetchFromGitHub {
      owner = "nix-community";
      repo = "nix-index";
--    rev = "v${version}";
+-    rev = "v${finalAttrs.version}";
 -    hash = "sha256-kOVmgST/D3zNOcGVu1ReuPuVrUx41iRK4rs59lqYX74=";
 +    rev = "0fc38040a22a08052103d0fbbafd67ac54165f2b";
 +    hash = "sha256-fFDr5BYisjkEFSgf+dGJTuhMUaH0aVE6Qy3Ql2EOJ2I=";
