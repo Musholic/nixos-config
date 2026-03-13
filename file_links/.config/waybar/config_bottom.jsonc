@@ -17,7 +17,7 @@
     "exec": "get_stream_todo",
   },
   "image#todo": {
-    "path": "/nix/persist/home/stream_todo.svg",
+    "path": "/nix/persist/home/stream_todo/stream_todo.svg",
     "size": 1300,
     "interval": 5,
   },
