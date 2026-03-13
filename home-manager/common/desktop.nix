@@ -12,10 +12,15 @@
     directories = [
       ".local/share/zed"
       ".config/google-chrome"
-      ".local/share/Steam"
       ".local/share/keyrings"
       ".var/app"
       ".local/share/flatpak"
+    ];
+  };
+
+  home.persistence."/nix/cache/home" = {
+    directories = [
+      ".local/share/Steam"
     ];
   };
 
@@ -72,6 +77,7 @@
     [
       rofi-power-menu
       google-chrome
+      brave
       polybar
       zathura
       feh
