@@ -18,35 +18,35 @@
 
   fileSystems = lib.mkIf (!config.boot.isRamBoot) {
     "/" = {
-      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+      device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = ["subvol=root" "compress=zstd" "noatime"];
+      options = ["subvol=stream/root" "compress=zstd" "noatime"];
     };
 
     "/nix" = {
-      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+      device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
       options = ["subvol=nix" "compress=zstd" "noatime"];
     };
 
     "/nix/persist" = {
-      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+      device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = ["subvol=persistent" "compress=zstd" "noatime"];
+      options = ["subvol=stream/persistent" "compress=zstd" "noatime"];
       neededForBoot = true;
     };
 
     "/nix/conf" = {
-      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+      device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = ["subvol=config" "compress=zstd" "noatime"];
+      options = ["subvol=stream/config" "compress=zstd" "noatime"];
       neededForBoot = true;
     };
 
-    "/nix/boot" = {
-      device = "/dev/disk/by-uuid/fdfd3c79-ff13-4067-b159-b0fc024d1c5a";
+    "/boot" = {
+      device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = ["subvol=boot" "compress=zstd" "noatime"];
+      options = ["subvol=stream/boot" "compress=zstd" "noatime"];
     };
 
     "/boot/efi" = {

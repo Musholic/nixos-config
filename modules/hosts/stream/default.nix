@@ -7,7 +7,7 @@
     ../../common/desktop.nix
   ];
 
-  disk.rootDiskLabel = "nixos_stream";
+  disk.rootDiskLabel = "nixos";
   
   systemd.services.pull-updates.serviceConfig.User = "musholic";
 
