@@ -20,19 +20,26 @@
     ];
   };
 
-  home.persistence."/nix/conf/file_links" = {
-    files = let
-      listFilesRecursive = dir: acc:
-        lib.flatten (lib.mapAttrsToList
-          (k: v:
-            if k == ".nolink"
-            then []
-            else if ! builtins.pathExists (dir + "/${acc}${k}/.nolink")
-            then acc + k
-            else listFilesRecursive dir (acc + k + "/"))
-          (builtins.readDir (dir + "/${acc}")));
-    in
-      listFilesRecursive ../file_links "";
+  home.persistence."/nix/conf/file_links" = let
+    isFileOrSymlink = path: builtins.readFileType path != "directory";
+    isDirectory = path: builtins.readFileType path == "directory";
+    listFilesRecursive = dir: acc: matcher:
+      lib.flatten (lib.mapAttrsToList
+        (k: v:
+          if k == ".nolink"
+          then []
+          else if ! builtins.pathExists (dir + "/${acc}${k}/.nolink")
+          then
+            (
+              if matcher (dir + "/${acc}${k}")
+              then acc + k
+              else []
+            )
+          else listFilesRecursive dir (acc + k + "/") matcher)
+        (builtins.readDir (dir + "/${acc}")));
+  in {
+    files = listFilesRecursive ../file_links "" isFileOrSymlink;
+    directories = listFilesRecursive ../file_links "" isDirectory;
   };
 
   programs.obs-studio = {
