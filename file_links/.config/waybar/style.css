@@ -353,3 +353,7 @@ window#waybar.fullscreen {
     margin: 10px;
     font-size: 20px;
 }
+
+#network {
+    min-width: 150px;
+}

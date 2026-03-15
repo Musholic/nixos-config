@@ -13,6 +13,7 @@
     "pulseaudio",
     "power-profiles-daemon",
     "disk",
+    "network",
     "cpu",
     "memory",
     "temperature",
@@ -124,9 +125,10 @@
     },
   },
   "network": {
+    "interval": 5,
     // "interface": "wlp2*", // (Optional) To force the use of this interface
-    "format-wifi": "{essid} ({signalStrength}%) ",
-    "format-ethernet": "{ipaddr}/{cidr} 󰈁",
+    "format-wifi": "{bandwidthDownOctets} {bandwidthUpOctets}  ",
+    "format-ethernet": "{bandwidthDownOctets} {bandwidthUpOctets} 󰈁",
     "tooltip-format": "{ifname} via {gwaddr}",
     "format-linked": "{ifname} (No IP)",
     "format-disconnected": "Disconnected ⚠",
