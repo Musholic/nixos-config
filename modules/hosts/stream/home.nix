@@ -4,6 +4,7 @@
   pkgs-unstable,
   pkgs-zed,
   pkgs-optinix,
+  deferred,
   ...
 }: {
   imports = [
@@ -24,7 +25,7 @@
     extraSpecialArgs = {
       inherit inputs;
       # Pass through the special package sets
-      inherit pkgs-unstable pkgs-zed pkgs-optinix;
+      inherit pkgs-unstable pkgs-zed pkgs-optinix deferred;
     };
     users.musholic = {...}: {
       imports = [../../../home-manager/home.nix];

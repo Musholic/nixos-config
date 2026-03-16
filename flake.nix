@@ -55,12 +55,14 @@
     pkgs-optinix = optinix.packages.${system}.default.overrideAttrs (oldAttrs: {
       patches = (oldAttrs.patches or []) ++ [./patches/optinix-remove-darwin.patch];
     });
+
+    deferred = import ./lib/deferred.nix (import nixpkgs {inherit system;});
   in {
     nixpkgs.config.allowUnfree = true;
     nixosConfigurations.nixos-musholic-stream = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
-        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix;
+        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix deferred;
       };
       modules = [
         ./modules/hosts/stream
@@ -68,7 +70,7 @@
     };
     homeConfigurations.musholic = home-manager.lib.homeManagerConfiguration {
       extraSpecialArgs = {
-        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix;
+        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix deferred;
       };
       modules = [
         ./home-manager/home.nix

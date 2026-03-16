@@ -1,7 +1,7 @@
 {
   pkgs,
   pkgs-zed,
-  config,
+  deferred,
   ...
 }: {
   imports = [
@@ -11,6 +11,7 @@
   home.persistence."/nix/persist/home" = {
     directories = [
       ".local/share/zed"
+      ".config/BraveSoftware"
       ".config/google-chrome"
       ".local/share/keyrings"
       ".var/app"
@@ -73,34 +74,29 @@
   };
 
   # Packages to install
-  home.packages = with pkgs;
-    [
-      rofi-power-menu
-      google-chrome
-      brave
-      polybar
-      zathura
-      feh
-      sshuttle
-      pkgs-zed
-      kanshi
-      wtype
-      hyprlock
+  home.packages = with pkgs; [
+    rofi-power-menu
+    (deferred google-chrome)
+    (deferred brave)
+    polybar
+    zathura
+    feh
+    sshuttle
+    pkgs-zed
+    kanshi
+    wtype
+    hyprlock
 
-      clipse
-      wl-clipboard
-      grim
-      slurp
+    clipse
+    wl-clipboard
+    grim
+    slurp
 
-      pulseaudio # For pactl utilities
+    pulseaudio # For pactl utilities
 
-      inkscape
-      discord
-    ]
-    ++ (pkgs.lib.optionals (!config.boot.isRamBoot) [
-      pkgs.jetbrains.idea-community-bin
-      pkgs.wineWowPackages.stable
-    ]);
+    (deferred inkscape)
+    (deferred discord)
+  ];
 
   home.pointerCursor = {
     name = "Catppuccin Mocha Sapphire";

@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  deferred,
+  ...
+}: {
   imports = [
     ../common
     ./ram_boot.nix
@@ -76,7 +80,10 @@
       enable = true;
     };
     seahorse.enable = true;
-    steam.enable = true;
+    steam = {
+      enable = true;
+      package = deferred pkgs.steam;
+    };
   };
 
   fonts.packages = with pkgs; [
