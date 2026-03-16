@@ -38,9 +38,17 @@ def --wrapped nrpkg [
     package: string,     # The Nix package name
     --impure (-i),        # Whether to add the --impure flag
     --unstable (-u),      # Whether to use nixpkgs-unstable instead of nixpkgs
+    --latest (-l),        # Fetch and use the latest commit from nixpkgs-unstable
     ...args: string      # Remaining arguments to pass to the command
 ] {
-  let flake_ref = if $unstable { "nixpkgs-unstable" } else { "nixpkgs" }
+  let flake_ref = if $latest {
+      "github:NixOS/nixpkgs/nixpkgs-unstable"
+  } else if $unstable {
+      "nixpkgs-unstable"
+  } else {
+      "nixpkgs"
+  }
+
   if $impure {
     $env.NIXPKGS_ALLOW_UNFREE = 1
   }
@@ -57,9 +65,17 @@ def --wrapped nrpkg [
 def --wrapped nspkg [
     --impure (-i),        # Whether to add the --impure flag
     --unstable (-u),      # Whether to use nixpkgs-unstable instead of nixpkgs
+    --latest (-l),        # Fetch and use the latest commit from nixpkgs-unstable
     ...packages: string  # List of Nix package names
 ] {
-  let flake_ref = if $unstable { "nixpkgs-unstable" } else { "nixpkgs" }
+  let flake_ref = if $latest {
+      "github:NixOS/nixpkgs/nixpkgs-unstable"
+  } else if $unstable {
+      "nixpkgs-unstable"
+  } else {
+      "nixpkgs"
+  }
+
   if $impure {
     $env.NIXPKGS_ALLOW_UNFREE = 1
   }
