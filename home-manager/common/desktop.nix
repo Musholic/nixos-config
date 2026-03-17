@@ -96,6 +96,8 @@
 
     (deferred inkscape)
     (deferred discord)
+    (deferred pkgs.wineWow64Packages.stable)
+    (deferred jetbrains.idea-oss)
   ];
 
   home.pointerCursor = {
