@@ -96,6 +96,7 @@
     noto-fonts-color-emoji
     # Custom
     noto-fonts
+    noto-fonts-cjk-sans # Chinese, Japanese, and Korean characters
     nerd-fonts.terminess-ttf
   ];
 
