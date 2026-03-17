@@ -127,4 +127,8 @@
       "/var/lib/flatpak"
     ];
   };
+
+  environment.sessionVariables = {
+    SSH_AUTH_SOCK = "/run/user/1000/gcr/ssh";
+  };
 }

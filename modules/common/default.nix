@@ -220,5 +220,12 @@
     ];
   };
 
+  environment.sessionVariables = {
+    TERMINAL = "alacritty";
+    EDITOR = "vim";
+    VISUAL = "vim";
+    BROWSER = "brave";
+  };
+
   system.stateVersion = "24.11";
 }

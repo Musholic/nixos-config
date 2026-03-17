@@ -32,9 +32,4 @@ if [ -d "$HOME/rootBin" ] ; then
     PATH="$HOME/rootBin:$PATH"
 fi
 
-export EDITOR='vim'
-export VISUAL='vim'
-export TERMINAL='kitty'
-export DISK='/mnt/disk'
 export npm_config_prefix="$HOME/.local"
-export SSH_AUTH_SOCK=/run/user/1000/gcr/ssh
