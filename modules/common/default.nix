@@ -159,6 +159,7 @@
       "/var/lib/nixos"
       "/etc/NetworkManager/system-connections"
       "/root/nixos"
+      "/var/lib/systemd/timers"
     ];
 
     files = [
