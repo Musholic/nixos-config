@@ -6,6 +6,9 @@
 }: {
   programs.nushell = {
     enable = true;
+    plugins = [
+      pkgs.nushellPlugins.skim
+    ];
     shellAliases = {
       # General aliases
       wh = "view source";
@@ -51,19 +54,13 @@
       nopts-update = "optinix update";
       specialize_to_streaming = "sudo /nix/var/nix/profiles/system/specialisation/streaming/bin/switch-to-configuration test";
       rollback_specialize = "sudo /nix/var/nix/profiles/system/bin/switch-to-configuration test";
-      
     };
 
     # Custom functions
-    # TODO: put in an external file
     extraConfig = builtins.readFile ./nushell_config.nu;
   };
 
   xdg.configFile = {
-    "nushell/plugins/nu_plugin_skim" = {
-      source = "${pkgs.nushellPlugins.skim}/bin/nu_plugin_skim";
-      executable = true;
-    };
     "nushell/git-aliases.nu" = {
       source = "${inputs.nushell-plugin-git-aliases}/git-aliases.nu";
     };
