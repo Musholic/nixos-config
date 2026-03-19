@@ -23,6 +23,13 @@
       options = ["subvol=stream/root" "compress=zstd" "noatime"];
     };
 
+    "/btrfs" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = ["subvolid=5" "compress=zstd" "noatime" "ro"];
+      neededForBoot = false;
+    };
+
     "/nix" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
