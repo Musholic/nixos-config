@@ -130,4 +130,10 @@
       };
     };
   };
+
+  environment.persistence."/nix/persist/system" = {
+    directories = [
+      "/var/lib/docker/"
+    ];
+  };
 }
