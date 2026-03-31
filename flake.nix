@@ -24,6 +24,7 @@
     };
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nixcord.url = "github:FlameFlag/nixcord";
   };
 
   outputs = inputs @ {

@@ -2,10 +2,12 @@
   pkgs,
   pkgs-zed,
   deferred,
+  inputs,
   ...
 }: {
   imports = [
     ../common
+    inputs.nixcord.homeModules.nixcord
   ];
 
   home.persistence."/nix/persist/home" = {
@@ -13,6 +15,7 @@
       ".local/share/zed"
       ".config/BraveSoftware"
       ".config/google-chrome"
+      ".config/JetBrains"
       ".local/share/keyrings"
       ".var/app"
       ".local/share/flatpak"
@@ -22,6 +25,8 @@
   home.persistence."/nix/cache/home" = {
     directories = [
       ".local/share/Steam"
+      ".cache/BraveSoftware"
+      ".wine"
     ];
   };
 
@@ -40,6 +45,23 @@
       systemd.enable = true;
     };
     alacritty.enable = true;
+    nixcord = {
+      enable = true;
+      discord.equicord.enable = true;
+      discord.vencord.enable = false;
+      config = {
+        useQuickCss = true;
+        plugins = {
+          keywordNotify.enable = true;
+          betterSettings.enable = true;
+          readAllNotificationsButton.enable = true;
+          showHiddenChannels.enable = true;
+          whoReacted.enable = true;
+          memberCount.enable = true;
+          permissionsViewer.enable = true;
+        };
+      };
+    };
   };
 
   services = {
@@ -91,11 +113,12 @@
     wl-clipboard
     grim
     slurp
+    hyprshot
+    qalculate-gtk
 
     pulseaudio # For pactl utilities
 
     (deferred inkscape)
-    (deferred discord)
     (deferred pkgs.wineWow64Packages.stable)
     (deferred jetbrains.idea-oss)
   ];
