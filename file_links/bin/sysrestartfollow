@@ -1,0 +1,8 @@
+#!/bin/sh
+# Restart a systemd service and follow its logs. Additional parameters will follow more services.
+systemctl restart --no-block $1
+units_args=""
+for service in "$@"; do
+  units_args="$units_args -u $service"
+done
+journalctl -f $units_args
