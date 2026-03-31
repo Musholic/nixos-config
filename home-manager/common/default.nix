@@ -30,6 +30,11 @@
       ".cache/nix"
     ];
   };
+  home.persistence."/nix/cache/home" = {
+    directories = [
+      ".local/share/mise"
+    ];
+  };
 
   # Let Home Manager install and manage itself.
   programs = {
@@ -63,6 +68,12 @@
       };
     };
     btop.enable = true;
+    yazi = {
+      enable = true;
+      enableNushellIntegration = true;
+      enableBashIntegration = true;
+      shellWrapperName = "y";
+    };
   };
 
   home.file = {

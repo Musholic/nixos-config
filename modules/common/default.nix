@@ -168,6 +168,12 @@
     ];
   };
 
+  environment.persistence."/nix/cache/system" = {
+    directories = [
+      "/root/.cache/nix"
+    ];
+  };
+
   services.avahi = {
     enable = true;
     nssmdns4 = true;
@@ -200,6 +206,7 @@
     manix
     moreutils
     unison # To allow synchronizing files between computers
+    yazi
   ];
 
   programs.nix-ld = {
