@@ -19,6 +19,7 @@
       ".local/share/keyrings"
       ".var/app"
       ".local/share/flatpak"
+      ".config/Code"
     ];
   };
 
@@ -27,6 +28,7 @@
       ".local/share/Steam"
       ".cache/BraveSoftware"
       ".wine"
+      ".vscode"
     ];
   };
 
@@ -61,6 +63,16 @@
           permissionsViewer.enable = true;
         };
       };
+    };
+    vscode = {
+      enable = true;
+      profiles.default.extensions = with pkgs.vscode-extensions; [
+        vscodevim.vim
+      ];
+      # TODO: add when stable: https://home-manager-options.extranix.com/?query=vscode.arg
+      #argvSettings = {
+      #  password-store = "gnome-libsecret";
+      #};
     };
   };
 
