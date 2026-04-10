@@ -6,11 +6,15 @@ pkgs: let
       name = exeName;
       runtimeInputs = [pkgs.nix];
       text = let
-        outPath = builtins.unsafeDiscardStringContext drv.outPath;
-        exe = "${outPath}/bin/${exeName}";
+        drvPath = builtins.unsafeDiscardStringContext drv.drvPath;
       in ''
-        nix-store --realise "${outPath}"
-        exec "${exe}" "$@"
+        # Avoid garbage collection
+        GC_ROOT="''${XDG_STATE_HOME:-$HOME/.local/state}/nix-deferred/${exeName}"
+        mkdir -p "$(dirname "$GC_ROOT")"
+
+        OUT_PATH=$(nix-build "${drvPath}" --out-link "$GC_ROOT")
+
+        exec "$OUT_PATH/bin/${exeName}" "$@"
       '';
     };
   in
