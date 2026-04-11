@@ -29,6 +29,7 @@
       ".cache/BraveSoftware"
       ".wine"
       ".vscode"
+      ".cache/JetBrains"
     ];
   };
 
