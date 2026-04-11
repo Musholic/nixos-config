@@ -28,6 +28,7 @@
       ".unison"
       "unison"
       ".cache/nix"
+      ".local/state" # Prevent garbage collection at each reboot
     ];
   };
   home.persistence."/nix/cache/home" = {
