@@ -236,11 +236,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1775824780,
-        "narHash": "sha256-WwXmevM7d7A60pXuBIjhDts1WMj/yFym3XYsf7EVoEg=",
+        "lastModified": 1775902385,
+        "narHash": "sha256-Y3hDPDxelMYssDK+z1REuhh1I9ykuPGo2IMpnF0muy8=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "8b7178802e247cb5d29545e286d5664ff4fb83bc",
+        "rev": "ebae44d65ab37fccd66e03db7d75fc434e2069f6",
         "type": "github"
       },
       "original": {
@@ -361,11 +361,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1775595990,
-        "narHash": "sha256-OEf7YqhF9IjJFYZJyuhAypgU+VsRB5lD4DuiMws5Ltc=",
+        "lastModified": 1775811116,
+        "narHash": "sha256-t+HZK42pB6N+i5RGbuy7Xluez/VvWbembBdvzsc23Ss=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4e92bbcdb030f3b4782be4751dc08e6b6cb6ccf2",
+        "rev": "54170c54449ea4d6725efd30d719c5e505f1c10e",
         "type": "github"
       },
       "original": {
@@ -557,11 +557,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1775867410,
-        "narHash": "sha256-NILJOAWDil/Z6+AQedAd3hanLENCcT9jpZLLOc66vdQ=",
+        "lastModified": 1775934456,
+        "narHash": "sha256-lt60w6ZGfHKwZOsTmWC1+c/WQjRzQ/ViQankdKjSeoM=",
         "owner": "zed-industries",
         "repo": "zed",
-        "rev": "93e36aa55ef9b43efc59ebe7a3f036149f88db47",
+        "rev": "9f507655c85d498d3eadb88349729e35ae35d684",
         "type": "github"
       },
       "original": {
