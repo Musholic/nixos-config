@@ -13,6 +13,7 @@
   home.stateVersion = "24.11";
 
   home.persistence."/nix/persist/home" = {
+    homeRelative = true;
     files = [
       ".zsh_history"
       ".config/rclone/rclone.conf"

@@ -38,6 +38,7 @@
           else listFilesRecursive dir (acc + k + "/") matcher)
         (builtins.readDir (dir + "/${acc}")));
   in {
+    homeRelative = true;
     files = listFilesRecursive ../file_links "" isFileOrSymlink;
     directories = listFilesRecursive ../file_links "" isDirectory;
   };
