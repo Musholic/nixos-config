@@ -33,6 +33,7 @@
     ];
   };
   home.persistence."/nix/cache/home" = {
+    homeRelative = true;
     directories = [
       ".local/share/mise"
     ];
