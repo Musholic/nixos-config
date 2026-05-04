@@ -1,6 +1,6 @@
 {
   pkgs,
-  pkgs-zed,
+  pkgs-unstable,
   deferred,
   inputs,
   ...
@@ -117,7 +117,7 @@
     zathura
     feh
     sshuttle
-    pkgs-zed
+    pkgs-unstable.zed
     kanshi
     wtype
     hyprlock

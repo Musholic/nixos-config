@@ -11,7 +11,6 @@
       url = "github:VundleVim/Vundle.vim";
       flake = false;
     };
-    zed-preview.url = "github:zed-industries/zed/nightly";
     zgen = {
       url = "github:tarjoilija/zgen";
       flake = false;
@@ -30,7 +29,6 @@
   outputs = inputs @ {
     nixpkgs,
     nixpkgs-unstable,
-    zed-preview,
     home-manager,
     optinix,
     ...
@@ -51,7 +49,6 @@
         inherit system;
         config.allowUnfree = true;
       };
-    pkgs-zed = zed-preview.packages.${system}.default;
 
     pkgs-optinix = optinix.packages.${system}.default.overrideAttrs (oldAttrs: {
       patches = (oldAttrs.patches or []) ++ [./patches/optinix-remove-darwin.patch];
@@ -63,7 +60,7 @@
     nixosConfigurations.nixos-musholic-stream = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
-        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix deferred;
+        inherit inputs pkgs-unstable pkgs-optinix deferred;
       };
       modules = [
         ./modules/hosts/stream
@@ -71,7 +68,7 @@
     };
     homeConfigurations.musholic = home-manager.lib.homeManagerConfiguration {
       extraSpecialArgs = {
-        inherit inputs pkgs-unstable pkgs-zed pkgs-optinix deferred;
+        inherit inputs pkgs-unstable pkgs-optinix deferred;
       };
       modules = [
         ./home-manager/home.nix
