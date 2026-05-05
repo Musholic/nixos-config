@@ -96,6 +96,7 @@
       enable = true; # Easiest to use and most distros use this by default.
       plugins = with pkgs; [
         networkmanager-openvpn
+        networkmanager-openconnect
       ];
     };
   };
