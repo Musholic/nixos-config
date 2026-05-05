@@ -117,7 +117,11 @@
     zathura
     feh
     sshuttle
-    pkgs-unstable.zed
+    pkgs-unstable.zed-editor
+    # Alias for zed-editor
+    (pkgs.writeShellScriptBin "zed" ''
+      exec ${lib.getExe pkgs-unstable.zed-editor} "$@"
+    '')
     kanshi
     wtype
     hyprlock
