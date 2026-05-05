@@ -202,6 +202,7 @@
     jq
     yq
     ncdu
+    btdu
     ack
     silver-searcher
     manix
