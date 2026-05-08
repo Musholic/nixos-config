@@ -67,7 +67,7 @@
           git config --global --add safe.directory "$dir"
         fi
       done
-      nixos-rebuild --flake /nix/conf switch --accept-flake-config
+      nixos-rebuild --flake /nix/conf boot --accept-flake-config
       booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
       built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
 
