@@ -175,12 +175,17 @@
     ];
   };
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    publish = {
+  services = {
+    avahi = {
       enable = true;
-      userServices = true;
+      nssmdns4 = true;
+      publish = {
+        enable = true;
+        userServices = true;
+      };
+    };
+    resolved = {
+      enable = true;
     };
   };
 
