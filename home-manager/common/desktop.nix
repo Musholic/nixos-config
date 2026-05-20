@@ -120,6 +120,7 @@
     pkgs-unstable.zed-editor
     # Alias for zed-editor
     (pkgs.writeShellScriptBin "zed" ''
+      export GITHUB_TOKEN=$(gh auth token)
       exec ${lib.getExe pkgs-unstable.zed-editor} "$@"
     '')
     kanshi
