@@ -70,7 +70,10 @@
         };
       };
     };
-    btop.enable = true;
+    btop = {
+      enable = true;
+      package = pkgs-unstable.btop;
+    };
     yazi = {
       enable = true;
       enableNushellIntegration = true;
