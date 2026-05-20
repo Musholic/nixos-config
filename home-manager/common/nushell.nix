@@ -50,7 +50,6 @@
       # NixOS specific aliases
       nfupdate = "nix flake update --commit-lock-file --flake /nix/conf";
       nhupdate = "nh home switch /nix/conf?submodules=1";
-      nupdate = "nh os switch /nix/conf?submodules=1 -- --accept-flake-config";
       nopts-update = "optinix update";
       specialize_to_streaming = "sudo /nix/var/nix/profiles/system/specialisation/streaming/bin/switch-to-configuration test";
       rollback_specialize = "sudo /nix/var/nix/profiles/system/bin/switch-to-configuration test";

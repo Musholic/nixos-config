@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+mkdir -p /nix/persist/home/last_nixos_update
+cd /nix/persist/home/last_nixos_update
+nh os build /nix/conf?submodules=1 --accept-flake-config
+echo "Executing 'sudo $(pwd)/result/bin/switch-to-configuration switch'"
+sudo ./result/bin/switch-to-configuration switch
