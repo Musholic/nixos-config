@@ -146,6 +146,12 @@
 
   virtualisation.docker = {
     enable = true;
+    daemon.settings = {
+      # Pin the default bridge IP just in case, ensuring it matches resolved
+      bip = "172.17.0.1/16";
+      # Force all containers to use this IP as their nameserver (the host's DNS resolver)
+      dns = ["172.17.0.1"];
+    };
   };
   # Ensure we build our /nix/conf by default with nixos-rebuild
   environment.etc = {
@@ -186,6 +192,10 @@
     };
     resolved = {
       enable = true;
+      # Support for docker using correctly the host's DNS resolver
+      extraConfig = ''
+        DNSStubListenerExtra=172.17.0.1
+      '';
     };
   };
 
