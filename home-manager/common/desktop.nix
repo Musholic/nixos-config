@@ -3,6 +3,7 @@
   pkgs-unstable,
   deferred,
   inputs,
+  config,
   ...
 }: {
   imports = [
@@ -102,6 +103,7 @@
 
   gtk = {
     enable = true;
+    gtk4.theme = config.gtk.theme;
     theme = {
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;

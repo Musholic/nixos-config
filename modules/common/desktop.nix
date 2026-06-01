@@ -109,13 +109,13 @@
   environment.systemPackages = with pkgs; [
     numlockx
     autorandr
-    xfce.xfce4-power-manager
+    xfce4-power-manager
     pasystray
     blueman
     kitty
     ntfs3g
     networkmanagerapplet
-    xfce.xfce4-notifyd
+    xfce4-notifyd
     pavucontrol
     xsel
     ranger

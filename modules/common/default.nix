@@ -7,7 +7,6 @@
   imports = [
     inputs.impermanence.nixosModules.impermanence
     ./disk_config.nix
-    ./rollover_boot.nix
     ./backup_boot.nix
   ];
 
@@ -192,10 +191,10 @@
     };
     resolved = {
       enable = true;
-      # Support for docker using correctly the host's DNS resolver
-      extraConfig = ''
-        DNSStubListenerExtra=172.17.0.1
-      '';
+      settings.Resolve = {
+        # Support for docker using correctly the host's DNS resolver
+        DNSStubListenerExtra = "172.17.0.1";
+      };
     };
   };
 

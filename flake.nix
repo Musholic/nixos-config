@@ -2,9 +2,9 @@
   description = "NixOS config for musholic stream host";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:ctem/impermanence/home-relative";
     vundle = {
@@ -15,8 +15,7 @@
       url = "github:tarjoilija/zgen";
       flake = false;
     };
-    # While build is failing and until next release: https://gitlab.com/hmajid2301/optinix/-/commits/main?ref_type=HEADS
-    optinix.url = "gitlab:hmajid2301/optinix/d274db25e577762fc0d9b5c131022b5907e26d6c";
+    optinix.url = "gitlab:hmajid2301/optinix";
     nushell-plugin-git-aliases = {
       url = "github:KamilKleina/git-aliases.nu";
       flake = false;
