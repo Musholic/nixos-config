@@ -9,6 +9,7 @@
   imports = [
     ../common
     inputs.nixcord.homeModules.nixcord
+    inputs.dms.homeModules.dank-material-shell
   ];
 
   home.persistence."/nix/persist/home" = {
@@ -44,10 +45,6 @@
         combi-modi = "window,run,drun";
       };
     };
-    waybar = {
-      enable = true;
-      systemd.enable = true;
-    };
     alacritty.enable = true;
     nixcord = {
       enable = true;
@@ -75,6 +72,30 @@
       #argvSettings = {
       #  password-store = "gnome-libsecret";
       #};
+    };
+    dank-material-shell = {
+      enable = true;
+      systemd = {
+        enable = true; # Systemd service for auto-start
+        restartIfChanged = true; # Auto-restart dms.service when dank-material-shell changes
+      };
+
+      settings = {
+        theme = "dark";
+        dynamicTheming = true;
+      };
+
+      session = {
+        isLightMode = false;
+      };
+
+      # Core features
+      enableSystemMonitoring = true; # System monitoring widgets (dgop)
+      enableVPN = true; # VPN management widget
+      enableDynamicTheming = true; # Wallpaper-based theming (matugen)
+      enableAudioWavelength = true; # Audio visualizer (cava)
+      enableCalendarEvents = true; # Calendar integration (khal)
+      enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
     };
   };
 

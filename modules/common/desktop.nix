@@ -1,11 +1,13 @@
 {
   pkgs,
   deferred,
+  inputs,
   ...
 }: {
   imports = [
     ../common
     ./ram_boot.nix
+    inputs.dms.nixosModules.greeter
   ];
 
   console = {
@@ -71,10 +73,11 @@
   programs = {
     dconf.enable = true;
     xfconf.enable = true;
-    hyprland = {
+    niri.enable = true;
+    dank-material-shell.greeter = {
       enable = true;
-      xwayland.enable = true;
-      withUWSM = true;
+      compositor.name = "niri";
+      configHome = "/home/ludo";
     };
     thunar = {
       enable = true;
