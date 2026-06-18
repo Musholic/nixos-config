@@ -84,11 +84,6 @@
         restartIfChanged = true; # Auto-restart dms.service when dank-material-shell changes
       };
 
-      settings = {
-        theme = "dark";
-        dynamicTheming = true;
-      };
-
       session = {
         isLightMode = false;
       };
