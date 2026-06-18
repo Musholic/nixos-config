@@ -23,7 +23,6 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  security.pam.services.sddm.enableGnomeKeyring = true;
   security.rtkit.enable = true;
 
   services = {
@@ -44,10 +43,6 @@
         layout = "fr";
         options = "caps:escape";
       };
-    };
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
     };
 
     blueman.enable = true;
