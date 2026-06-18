@@ -63,6 +63,10 @@
         };
       };
     };
+    chromium = {
+      enable = true;
+      package = pkgs.brave;
+    };
     vscode = {
       enable = true;
       profiles.default.extensions = with pkgs.vscode-extensions; [
@@ -134,8 +138,6 @@
   # Packages to install
   home.packages = with pkgs; [
     rofi-power-menu
-    (deferred google-chrome)
-    (deferred brave)
     polybar
     zathura
     feh
