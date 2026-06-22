@@ -156,6 +156,8 @@
 
     pulseaudio # For pactl utilities
 
+    xwayland-satellite # For niri
+
     (deferred inkscape)
     (deferred pkgs.wineWow64Packages.stable)
     (deferred jetbrains.idea-oss)
