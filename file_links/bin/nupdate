@@ -2,5 +2,15 @@
 mkdir -p /nix/persist/home/last_nixos_update
 cd /nix/persist/home/last_nixos_update
 nh os build /nix/conf?submodules=1 --accept-flake-config
-echo "Executing 'sudo $(pwd)/result/bin/switch-to-configuration switch'"
+# Fail if the build fails
+if [ $? -ne 0 ]; then
+  echo "Build failed"
+  exit 1
+fi
+echo "Build succeeded. Do you want to switch to the new configuration (executing 'sudo $(pwd)/result/bin/switch-to-configuration switch')? (y/n)"
+read -r answer
+if [ "$answer" != "y" ]; then
+  echo "Aborting"
+  exit 0
+fi
 sudo ./result/bin/switch-to-configuration switch
