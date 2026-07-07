@@ -14,7 +14,6 @@
     extraGroups = ["wheel" "networkmanager" "docker"];
     shell = pkgs.nushell;
     hashedPasswordFile = "/nix/persist/hashedPassword.txt";
-    initialPassword = "tmpPass";
   };
 
   home-manager.backupFileExtension = "hm-backup";
