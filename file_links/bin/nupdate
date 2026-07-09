@@ -7,7 +7,11 @@ if [ $? -ne 0 ]; then
   echo "Build failed"
   exit 1
 fi
-echo "Build succeeded. Do you want to switch to the new configuration (executing 'sudo $(pwd)/result/bin/switch-to-configuration switch')? (y/n)"
+
+echo "Build succeeded. Adding to system profile..."
+sudo nix-env -p /nix/var/nix/profiles/system --set /nix/persist/home/last_nixos_update/result
+
+echo "Do you want to switch to the new configuration (executing 'sudo $(pwd)/result/bin/switch-to-configuration switch')? (y/n)"
 read -r answer
 if [ "$answer" != "y" ]; then
   echo "Aborting"
